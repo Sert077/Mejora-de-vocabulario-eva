@@ -1,1 +1,1 @@
-# Mejora-de-vocabulario-eva
+# Proyecto de Mejora de vocabulario en español siguiendo enseñanzas conductistas y constructivistas-EVA
