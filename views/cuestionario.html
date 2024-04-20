@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Vocabulario</title>
+    <style>
+        #contenedor-palabras {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .palabra {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .palabra:hover {
+            background-color: #f0f0f0;
+        }
+        #contenedor-oracion {
+            border: 2px dashed #333;
+            padding: 20px;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .palabra-oracion {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .correcto {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cuestionario de Vocabulario</h1>
+    <p>Completa la oración con la palabra correcta:</p>
+    <div id="contenedor-palabras">
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra1">Escuchar</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra2">atentamente</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra3">no</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra4">es</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra5">lo</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra6">mismo</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra7">que</div>
+        <div class="palabra" draggable="true" ondragstart="drag(event)" id="palabra8">oir</div>
+    </div>
+    <p id="mensaje">Arrastra dentro del recuadro las palabras para completar la oración:</p>
+    <div id="contenedor-oracion" ondrop="drop(event); verificarOracion();" ondragover="allowDrop(event)">
+    </div>
+    <button onclick="reset()">Limpiar oración</button>
+    <p id="resultado"></p>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var palabraArrastrada = document.getElementById(data);
+            var contenedorOracion = event.target;
+            palabraArrastrada.classList.add('palabra-oracion');
+            contenedorOracion.appendChild(palabraArrastrada);
+        }
+
+        function verificarOracion() {
+            var contenedorOracion = document.getElementById('contenedor-oracion');
+            var palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion');
+            var mensaje = document.getElementById('mensaje');
+            
+            if (palabrasOracion.length > 0) { // Verificar solo si hay al menos una palabra en la oración
+                var oracionCompleta = Array.from(palabrasOracion).map(child => child.textContent).join(' ');
+                var oracionCorrecta = 'Escuchar atentamente no es lo mismo que oir';
+                var resultado = document.getElementById('resultado');
+                if (oracionCompleta.trim() === oracionCorrecta) {
+                    resultado.textContent = '¡Oración completada correctamente!';
+                    resultado.classList.add('correcto');
+                    mensaje.style.display = 'none'; // Ocultar el mensaje
+                } else {
+                    resultado.textContent = 'La oración no está en el orden correcto.';
+                    resultado.classList.remove('correcto');
+                    // Mostrar el mensaje solo si no está completo
+                    if (oracionCompleta.split(' ').length < oracionCorrecta.split(' ').length) {
+                        mensaje.style.display = 'block';
+                    } else {
+                        mensaje.style.display = 'none';
+                    }
+                }
+            } else {
+                mensaje.style.display = 'block'; // Mostrar el mensaje si no hay palabras en la oración
+            }
+        }
+
+        function reset() {
+            var contenedorOracion = document.getElementById('contenedor-oracion');
+            var contenedorPalabras = document.getElementById('contenedor-palabras');
+            var palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion');
+            while (palabrasOracion.length > 0) {
+                contenedorPalabras.appendChild(palabrasOracion[0]); // Devolver palabras al contenedor original
+                palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion'); // Actualizar la lista de palabras en la oración
+            }
+            var resultado = document.getElementById('resultado');
+            resultado.textContent = '';
+            resultado.classList.remove('correcto');
+            document.getElementById('mensaje').style.display = 'block'; // Mostrar el mensaje
+        }
+    </script>
+</body>
+</html>
