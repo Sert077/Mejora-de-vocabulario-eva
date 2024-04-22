@@ -1,0 +1,63 @@
+#contenedor-palabras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+   
+}
+.palabra {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+.palabra:hover {
+    background-color: #f0f0f0;
+}
+#contenedor-oracion {
+    border: 2px dashed #333;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: #003077 ;
+    
+    width: 90%;
+}
+.palabra-oracion {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+}
+.correcto {
+    color: green;
+}
+.titulo{
+    width: 50%;
+    margin-top: 5%;
+    
+}
+body {
+    background-color: #000028;
+    color: #f0f0f0;
+    margin-left: 9%;
+
+}
+.sub {
+    margin-top: 5%; /* Espacio en la parte superior */
+    text-align: left; /* Centrar el contenido */
+    color: white; /* Color del texto */
+    padding: 10px; /* Espaciado interior */
+}
+.espacio{
+    margin-top: 10px;
+    width: 30%;
+    }

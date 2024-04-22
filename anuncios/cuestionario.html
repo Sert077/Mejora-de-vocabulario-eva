@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/estilos.css">
+    <head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div ></div>
+        <title >Cuestionario de Vocabulario</title>
+    </div>
+</head>
+<body>
+    <div class ="titulo">
+        <h1>Cuestionario de Vocabulario</h1>
+    </div>
+    <div class ="sub">
+      
+        <p>Completa la oración con la palabra correcta:</p>
+    </div>
+    <div id="contenedor-palabras">
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra1">Escuchar</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra2">atentamente</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra3">no</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra4">es</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra5">lo</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra6">mismo</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra7">que</div>
+        <div class="btn btn-outline-info" draggable="true" ondragstart="drag(event)" id="palabra8">oir</div>
+    </div>
+
+    <p id="mensaje">Arrastra dentro del recuadro las palabras para completar la oración:</p>
+    <div id="contenedor-oracion" ondrop="drop(event); verificarOracion();" ondragover="allowDrop(event)">
+    </div>
+    <div class= "espacio">
+        <button onclick="reset()"class="btn btn-primary">Limpiar oración</button>
+        <p id="resultado"  role="alert"></p>
+    </div>
+   
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var palabraArrastrada = document.getElementById(data);
+            var contenedorOracion = event.target;
+            palabraArrastrada.classList.add('palabra-oracion');
+            contenedorOracion.appendChild(palabraArrastrada);
+        }
+
+        function verificarOracion() {
+            var contenedorOracion = document.getElementById('contenedor-oracion');
+            var palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion');
+            var mensaje = document.getElementById('mensaje');
+            
+            if (palabrasOracion.length > 0) { // Verificar solo si hay al menos una palabra en la oración
+                var oracionCompleta = Array.from(palabrasOracion).map(child => child.textContent).join(' ');
+                var oracionCorrecta = 'Escuchar atentamente no es lo mismo que oir';
+                var resultado = document.getElementById('resultado');
+                if (oracionCompleta.trim() === oracionCorrecta) {
+                    resultado.textContent = '¡Oración completada correctamente!';
+                    resultado.classList.add('correcto');
+                    mensaje.style.display = 'none'; // Ocultar el mensaje
+                } else {
+                    resultado.textContent = 'La oración no está en el orden correcto.';
+                    resultado.classList.remove('correcto');
+                    // Mostrar el mensaje solo si no está completo
+                    if (oracionCompleta.split(' ').length < oracionCorrecta.split(' ').length) {
+                        mensaje.style.display = 'block';
+                    } else {
+                        mensaje.style.display = 'none';
+                    }
+                }
+            } else {
+                mensaje.style.display = 'block'; // Mostrar el mensaje si no hay palabras en la oración
+            }
+        }
+
+        function reset() {
+            var contenedorOracion = document.getElementById('contenedor-oracion');
+            var contenedorPalabras = document.getElementById('contenedor-palabras');
+            var palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion');
+            while (palabrasOracion.length > 0) {
+                contenedorPalabras.appendChild(palabrasOracion[0]); // Devolver palabras al contenedor original
+                palabrasOracion = contenedorOracion.getElementsByClassName('palabra-oracion'); // Actualizar la lista de palabras en la oración
+            }
+            var resultado = document.getElementById('resultado');
+            resultado.textContent = '';
+            resultado.classList.remove('correcto');
+            document.getElementById('mensaje').style.display = 'block'; // Mostrar el mensaje
+        }
+    </script>
+</body>
+</html>
