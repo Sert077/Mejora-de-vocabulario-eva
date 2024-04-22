@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     background: #003077 ;
-    
+    background: rgba(45, 129, 255, 0.1);
     width: 90%;
 }
 .palabra-oracion {
@@ -43,8 +43,8 @@
 .titulo{
     width: 50%;
     margin-top: 5%;
-    
 }
+
 body {
     background-color: #000028;
     color: #f0f0f0;
@@ -60,4 +60,52 @@ body {
 .espacio{
     margin-top: 10px;
     width: 30%;
+    }
+
+    /*.entrada{
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        justify-content: center; 
+        height: 200%;                  
+    }*/
+    
+    .entrada input[type="text"] {
+        margin-bottom: 2%;
+        background-color: transparent;
+        color: white;                  
+        border: 1px solid white;     
+        padding: 8px;                  
+        width: 50%;                    
+    }
+
+    .entrada button {
+        margin-bottom: 2%;
+        padding: 5px 10px; 
+        background-color: green; 
+        color: white; 
+        border-radius: 5px;
+        font-size: 16px; 
+        cursor: pointer; 
+        transition: all 0.3s ease; 
+        border: none;
+    }
+    
+    .entrada button:hover {
+        background-color: #17a2b8; 
+        color: white; 
+    }
+    
+    .entrada button:active {
+        transform: scale(0.98); 
+    }
+    
+    .entrada button:focus {
+        border-color: #0d6efd; 
+    }
+    
+
+
+    p {
+        margin-top: 1%;
     }
