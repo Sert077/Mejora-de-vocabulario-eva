@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Identificación de Imágenes</title>
+    <!-- Enlaces a Bootstrap y a tu archivo de estilos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/estilos.css">
+
+    <!-- Función JavaScript para manejar la prueba -->
+    <script>
+        function verificarRespuesta() {
+            // Obtener el valor de la opción seleccionada por el usuario
+            var respuestaUsuario = document.querySelector('input[name="opcion"]:checked').value;
+
+            // Comparar la respuesta del usuario con la respuesta correcta
+            if (respuestaUsuario === "gato") {
+                // Respuesta correcta
+                alert("¡Respuesta correcta! Efectivamente es un gato.");
+                // Aquí podrías redireccionar al usuario a la siguiente prueba o realizar alguna otra acción
+            } else {
+                // Respuesta incorrecta
+                alert("Respuesta incorrecta. Inténtalo de nuevo.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="titulo">
+        <h1>Identifique las Imágenes</h1>
+    </div>
+    <br>
+
+    <div class="imagen">
+        <!-- Aquí puedes colocar la imagen que deseas mostrar -->
+        <img src="Images/gato_01.jpeg" alt="Imagen de un gato">
+    </div>
+
+    <div class="opciones">
+        <p>¿Qué animal es el que se muestra en la imagen?</p>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="opcion" id="opcion1" value="perro">
+            <label class="form-check-label" for="opcion1">Perro</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="opcion" id="opcion2" value="gato">
+            <label class="form-check-label" for="opcion2">Gato</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="opcion" id="opcion3" value="conejo">
+            <label class="form-check-label" for="opcion3">Conejo</label>
+        </div>
+    </div>
+    <br>
+
+    <div class="boton">
+        <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="scripts/javascript.js"></script>
+</body>
+</html>

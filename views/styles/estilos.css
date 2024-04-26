@@ -1,0 +1,112 @@
+#contenedor-palabras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+   
+}
+.palabra {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+.palabra:hover {
+    background-color: #f0f0f0;
+}
+#contenedor-oracion {
+    border: 2px dashed #333;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: #003077 ;
+    background: rgba(45, 129, 255, 0.1);
+    width: 90%;
+}
+.palabra-oracion {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+}
+.correcto {
+    color: green;
+}
+.titulo{
+    width: 50%;
+    margin-top: 5%;
+}
+
+body {
+    background-color: #000028;
+    color: #f0f0f0;
+    margin-left: 9%;
+
+}
+.sub {
+    margin-top: 5%; /* Espacio en la parte superior */
+    text-align: left; /* Centrar el contenido */
+    color: white; /* Color del texto */
+    padding: 10px; /* Espaciado interior */
+}
+.espacio{
+    margin-top: 10px;
+    width: 30%;
+    }
+
+    /*.entrada{
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        justify-content: center; 
+        height: 200%;                  
+    }*/
+    
+    .entrada input[type="text"] {
+        margin-bottom: 2%;
+        background-color: transparent;
+        color: white;                  
+        border: 1px solid white;     
+        padding: 8px;                  
+        width: 50%;                    
+    }
+
+    .entrada button {
+        margin-bottom: 2%;
+        padding: 5px 10px; 
+        background-color: green; 
+        color: white; 
+        border-radius: 5px;
+        font-size: 16px; 
+        cursor: pointer; 
+        transition: all 0.3s ease; 
+        border: none;
+    }
+    
+    .entrada button:hover {
+        background-color: #17a2b8; 
+        color: white; 
+    }
+    
+    .entrada button:active {
+        transform: scale(0.98); 
+    }
+    
+    .entrada button:focus {
+        border-color: #0d6efd; 
+    }
+    
+
+
+    p {
+        margin-top: 1%;
+    }
+    
