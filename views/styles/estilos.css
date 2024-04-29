@@ -59,7 +59,7 @@ body {
 }
 .espacio{
     margin-top: 10px;
-    width: 30%;
+    width: 50%;
     }
 
     /*.entrada{
@@ -108,5 +108,8 @@ body {
 
     p {
         margin-top: 1%;
+    }
+    #inputTexto {
+        display: none; 
     }
     

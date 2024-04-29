@@ -1,4 +1,8 @@
 /*Página cuestionario de vocabulario*/
+window.onload = function() {
+    cambiarOracion();
+    convertirTexto()
+};
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -75,6 +79,34 @@ function reset() {
     var resultado = document.getElementById("resultado");
     if (resultado) {
         resultado.textContent = '';
+    }
+}
+
+
+var oraciones = [
+    "Escuchar atentamente no es lo mismo que oír.",
+    "Las estrellas titilaban en el cielo nocturno.",
+    "La luna creciente iluminaba tenuemente el sendero.",
+    "Las campanas del templo repicaban al atardecer.",
+    "A palabras necias, oídos sordos.",
+    "Los astrofísicos divagan sobre los misterios del universo infinito.",
+];
+var indiceActual = 0;
+
+// Función para cambiar la oración mostrada en el input
+function cambiarOracion() {
+    var input = document.getElementById('inputTexto');
+    input.value = oraciones[indiceActual];
+    indiceActual = (indiceActual + 1) % oraciones.length; // Circular por el array
+}
+
+// Función para mostrar u ocultar el input
+function mostrarInput() {
+    var input = document.getElementById('inputTexto');
+    if (input.style.display === 'none') {
+        input.style.display = 'block';
+    } else {
+        input.style.display = 'none';
     }
 }
 

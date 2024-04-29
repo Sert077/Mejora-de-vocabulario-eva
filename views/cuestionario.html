@@ -23,10 +23,10 @@
 
     <div class="entrada">
         <p>¡Completa la oración en el orden correcto!</p>
-        <p>Introduce la oración:</p>
         <input type="text" id="inputTexto">
+        <!--<p>Introduce la oración:</p>
         <br>
-        <button onclick="convertirTexto()">Añadir</button>
+        button onclick="convertirTexto()">Añadir</button>-->
     </div>
 
     <div>
@@ -41,6 +41,7 @@
     <div class="espacio">
         <p id="resultado" role="alert"></p>
         <button onclick="reset()" class="btn btn-primary">Limpiar</button>
+        <button onclick="cambiarOracion(); convertirTexto();" class="btn btn-primary btn-siguiente">Siguiente oración</button>
         <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
     </div>
     
