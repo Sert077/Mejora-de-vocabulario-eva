@@ -109,4 +109,24 @@ body {
     p {
         margin-top: 1%;
     }
+    .imagen-contenedor {
+        border: 10px solid #ccc; /* Borde de 2px sólido con color gris */
+        width: 600px; /* Ancho del marco */
+        height: 400px; /* Altura del marco */
+        overflow: hidden;
+        border-radius: 5px;
+        margin: 0 auto;
+        text-align: center;
+    }
     
+    .imagen {
+        width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
+        height: auto; /* Altura automática para mantener la proporción de la imagen */
+        display: block; /* Asegura que la imagen sea un elemento de bloque */
+    }
+    .boton2{
+        text-align: right;
+    }
+    .alert-small {
+        width: 90%; /* Define el ancho del alerta */
+    }
