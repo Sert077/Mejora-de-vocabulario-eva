@@ -130,3 +130,47 @@ body {
     .alert-small {
         width: 90%; /* Define el ancho del alerta */
     }
+
+
+
+    .frase-cf {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+    }
+
+    .pregunta-cf {
+        margin-bottom: 20px;
+    }
+
+    .pregunta-cf p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .opciones-cf {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .opciones-cf label {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .opciones-cf label:hover {
+        background-color: #f0f0f0;
+    }
+
+    .frase-cf p, .opciones-cf label {
+        color: #000; /* Color de texto negro para los títulos, las preguntas y las opciones */
+    }
+
+    
