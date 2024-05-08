@@ -10,6 +10,7 @@ function verificarRespuestas() {
         const opcionSeleccionada = document.querySelector(`input[name="opcion${i}"]:checked`);
         if (opcionSeleccionada) {
             respuestasUsuario.push(opcionSeleccionada.value);
+            
         } else {
             // Si el usuario no ha seleccionado una opción para todas las preguntas, mostrar un mensaje de error
             mostrarResultado('Debes responder todas las preguntas.');
@@ -32,4 +33,6 @@ function verificarRespuestas() {
 function mostrarResultado(mensaje) {
     const resultado = document.getElementById('resultado');
     resultado.textContent = mensaje;
+    resultado.classList.add('alert', 'alert-info');
 }
+

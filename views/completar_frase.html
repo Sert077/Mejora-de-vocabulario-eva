@@ -13,37 +13,38 @@
         <div class="titulo">
             <h1>Prueba de Completar Frases</h1>
         </div>
-
+        
+        <br>
         <div class="frase-cf">
-            <p>Completa cada frase seleccionando la palabra correcta:</p>
+            <p class="h4">Completa cada frase seleccionando la palabra correcta:</p>
             
             <div class="pregunta-cf">
                 <p>1. La _ _ _ _ _ _ es una fruta muy dulce y con muchas pepas.</p>
                 <div class="opciones-cf">
-                    <label><input type="radio" name="opcion1" value="a"> a) Manzana</label>
-                    <label><input type="radio" name="opcion1" value="b"> b) Plátano</label>
-                    <label><input type="radio" name="opcion1" value="c"> c) Sandía</label>
-                    <label><input type="radio" name="opcion1" value="d"> d) Naranja</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion1" value="a"> a) Manzana</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion1" value="b"> b) Plátano</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion1" value="c"> c) Sandía</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion1" value="d"> d) Naranja</label>
                 </div>
             </div>
 
             <div class="pregunta-cf">
                 <p>2. Me gusta mucho _ _ _ _ _ en el parque los domingos.</p>
                 <div class="opciones-cf">
-                    <label><input type="radio" name="opcion2" value="a"> a) Jugar</label>
-                    <label><input type="radio" name="opcion2" value="b"> b) Comer</label>
-                    <label><input type="radio" name="opcion2" value="c"> c) Leer</label>
-                    <label><input type="radio" name="opcion2" value="d"> d) Bailar</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion2" value="a"> a) Jugar</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion2" value="b"> b) Comer</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion2" value="c"> c) Leer</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion2" value="d"> d) Bailar</label>
                 </div>
             </div>
 
             <div class="pregunta-cf">
                 <p>3. _ _ _ _ _ _ _ es el planeta más grande del sistema solar.</p>
                 <div class="opciones-cf">
-                    <label><input type="radio" name="opcion3" value="a"> a) Sol</label>
-                    <label><input type="radio" name="opcion3" value="b"> b) Luna</label>
-                    <label><input type="radio" name="opcion3" value="c"> c) Júpiter</label>
-                    <label><input type="radio" name="opcion3" value="d"> d) Marte</label>
+                    <label class="btn btn-outline-info" ><input type="radio" name="opcion3" value="a"> a) Sol</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion3" value="b"> b) Luna</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion3" value="c"> c) Júpiter</label>
+                    <label class="btn btn-outline-info"><input type="radio" name="opcion3" value="d"> d) Marte</label>
                 </div>
             </div>
 
@@ -53,8 +54,9 @@
                 <button onclick="verificarRespuestas()" class="btn btn-primary">Verificar Respuestas</button>
             </div>
         </div>
-
-        <div id="resultado" class="espacio"></div>
+        <div class="espacio">
+            <div  role="alert" id="resultado" ></div>
+        </div>
     </div>
 
     <!-- Script JavaScript -->
