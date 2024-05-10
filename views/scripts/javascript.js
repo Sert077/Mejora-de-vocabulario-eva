@@ -112,10 +112,6 @@ function verificarOracion() {
 }
 
 
-
-
-
-
 function convertirTexto() {
     var contenedorOracion = document.getElementById("contenedor-oracion");
     var input = document.getElementById("inputTexto").value.trim(); 
