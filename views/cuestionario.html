@@ -14,6 +14,7 @@
             // Aquí puedes definir la URL a la que quieres redireccionar al usuario
             window.location.href = "seleccion_multiple.html";
         }
+        
     </script>
 </head>
 <body>
@@ -24,9 +25,8 @@
     <div class="entrada">
         <p>¡Completa la oración en el orden correcto!</p>
         <input type="text" id="inputTexto">
-        <!--<p>Introduce la oración:</p>
-        <br>
-        button onclick="convertirTexto()">Añadir</button>-->
+        <p>Introduce la oración:</p>
+        <button onclick="convertirTexto()">Añadir</button>
     </div>
 
     <div>
@@ -34,15 +34,19 @@
     </div>
 
     <div id="contenedor-palabras"></div>
-
-    <div id="contenedor-oracion" ondrop="drop(event); verificarOracion();" ondragover="allowDrop(event)">
+    <div id="area-devolucion" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="contenedor-oracion" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     
     <div class="espacio">
         <p id="resultado" role="alert"></p>
         <button onclick="reset()" class="btn btn-primary">Limpiar</button>
+        <button onclick="verificarOracion()"class="btn btn-primary btn-siguiente" >Verificar oración</button>
         <button onclick="cambiarOracion(); convertirTexto();" class="btn btn-primary btn-siguiente">Siguiente oración</button>
+        <br><br>
         <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
+        <!--<button onclick="obtenerPista()">Obtener Pista</button>-->
+
     </div>
     
     <!-- Script JavaScript -->
