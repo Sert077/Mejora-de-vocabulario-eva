@@ -24,9 +24,11 @@
 
     <div class="entrada">
         <p>¡Completa la oración en el orden correcto!</p>
+
+        <p>Introduce o cambia la oración, tienes hasta 6 oraciones para guardar!:</p>
         <input type="text" id="inputTexto">
-        <p>Introduce la oración:</p>
-        <button onclick="convertirTexto()">Añadir</button>
+        <br>
+        <button onclick="convertirGuardar(indiceActual)">Guardar oración</button>
     </div>
 
     <div>
@@ -41,8 +43,8 @@
     <div class="espacio">
         <p id="resultado" role="alert"></p>
         <button onclick="reset()" class="btn btn-primary">Limpiar</button>
-        <button onclick="verificarOracion()"class="btn btn-primary btn-siguiente" >Verificar oración</button>
-        <button onclick="cambiarOracion(); convertirTexto();" class="btn btn-primary btn-siguiente">Siguiente oración</button>
+        <button onclick="verificarOracion()"class="btn btn-primary btn-siguiente">Verificar oración</button>
+        <button onclick="cambiarOracion(); convertirTexto(); reset();" class="btn btn-primary btn-siguiente">Siguiente oración</button>
         <br><br>
         <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
         <!--<button onclick="obtenerPista()">Obtener Pista</button>-->

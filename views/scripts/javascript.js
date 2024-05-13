@@ -137,6 +137,7 @@ function convertirTexto() {
     });
 }
 
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1)); 
@@ -167,12 +168,12 @@ function reset() {
 
 
 var oraciones = [
-    "Escuchar atentamente no es lo mismo que oír.",
-    "Las estrellas titilaban en el cielo nocturno.",
-    "La luna creciente iluminaba tenuemente el sendero.",
-    "Las campanas del templo repicaban al atardecer.",
-    "A palabras necias, oídos sordos.",
-    "Los astrofísicos divagan sobre los misterios del universo infinito.",
+    "Escuchar atentamente no es lo mismo que oír",
+    "Las estrellas titilaban en el cielo nocturno",
+    "La luna creciente iluminaba tenuemente el sendero",
+    "Las campanas del templo repicaban al atardecer",
+    "A palabras necias, oídos sordos",
+    "Los astrofísicos divagan sobre los misterios del universo infinito",
 ];
 var indiceActual = 0;
 
@@ -191,6 +192,66 @@ function mostrarInput() {
     } else {
         input.style.display = 'none';
     }
+}
+
+// Función para obtener las oraciones del localStorage
+function obtenerOracionesGuardadas() {
+    var oracionesGuardadas = localStorage.getItem('oraciones');
+    return oracionesGuardadas ? JSON.parse(oracionesGuardadas) : null;
+}
+
+// Función para guardar las oraciones en el localStorage
+function guardarOraciones(oraciones) {
+    localStorage.setItem('oraciones', JSON.stringify(oraciones));
+}
+
+// Cargar oraciones guardadas al cargar la página
+// Cargar oraciones guardadas al cargar la página
+window.onload = function() {
+    var oracionesGuardadas = obtenerOracionesGuardadas();
+    if (oracionesGuardadas) {
+        oraciones = oracionesGuardadas;
+    }
+    cambiarOraciones();
+};
+
+// Función para cambiar la oración mostrada en el input
+function cambiarOraciones() {
+    var input = document.getElementById('inputTexto');
+    input.value = oraciones[indiceActual];
+    indiceActual = (indiceActual + 1) % oraciones.length; // Circular por el array
+    convertirGuardar(); // Llamar a convertirGuardar después de cambiar la oración
+}
+
+// Función para convertir texto
+function convertirGuardar() {
+    var input = document.getElementById("inputTexto").value.trim(); 
+    if (input.length === 0) { 
+        return; 
+    }
+    
+    // Actualizar la oración en el array 'oraciones' y guardar en localStorage
+    oraciones[indiceActual === 0 ? oraciones.length - 1 : indiceActual - 1] = input;
+    guardarOraciones(oraciones);
+    
+    // Mostrar la oración editada en el input
+    document.getElementById('inputTexto').value = input;
+
+    // Convertir texto ingresado en palabras para el contenedor de palabras
+    var palabras = input.split(/\s+/); 
+    shuffleArray(palabras);
+    var contenedor = document.getElementById("contenedor-palabras");
+    contenedor.innerHTML = ''; 
+
+    palabras.forEach((palabra, index) => {
+        var div = document.createElement("div");
+        div.className = "btn btn-outline-info"; 
+        div.setAttribute("draggable", "true");
+        div.setAttribute("ondragstart", "drag(event)");
+        div.id = "palabra" + (index + 1); 
+        div.textContent = palabra; 
+        contenedor.appendChild(div); 
+    });
 }
 
 /*Fin Página cuestionario de vocabulario*/
