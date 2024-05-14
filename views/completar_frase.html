@@ -22,11 +22,15 @@
             <div id="preguntasContainer"></div>
 
             <div class="boton">
-                <button onclick="cargarNuevasPreguntas()" class="btn btn-primary">Siguiente</button>
-                <button onclick="verificarRespuestas()" class="btn btn-primary">Verificar Respuestas</button>
+                <button onclick="editar()" class="btn btn-primary" id="botonEditar">Editar</button>
+                <button onclick="guardarCambios()" class="btn btn-primary" id="botonGuardar">Guardar</button>
+                <button onclick="retrocederPreguntas()" class="btn btn-primary" id="atras">Atrás</button>
+                <button onclick="cargarNuevasPreguntas()" class="btn btn-primary" id="sig">Siguiente</button>
+                <button onclick="verificarRespuestas()" class="btn btn-primary" id="veri">Verificar Respuestas</button>
             </div>
+            
         </div>
-
+        
         <div id="resultado" class="espacio"></div>
     </div>
 
