@@ -164,6 +164,27 @@ body {
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
+
+
+    @keyframes carrusel {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+.imagen-contenedor {
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen {
+  width: 100%;
+  height: auto;
+  animation: carrusel 1s ease-in-out;
+}
     
     .opciones-cf label:hover {
         background-color: #f0f0f0;

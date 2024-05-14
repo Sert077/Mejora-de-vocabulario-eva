@@ -7,45 +7,35 @@
     <!-- Enlaces a Bootstrap y a tu archivo de estilos -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/estilos.css">
-
-    <script>
-        function redireccionar() {
-            // Aquí puedes definir la URL a la que quieres redireccionar al usuario
-            window.location.href = "completar_frase.html";
-        }
-    </script>
 </head>
 <body>
+    <script>
+        function redireccionar(){
+            window.location.href="completar_frase.html";
+        }
+    </script>
     <div class="container">
         <div class="titulo">
             <h1>Identifique las Imágenes</h1>
         </div>
         <br>
-
+        <div class="instrucciones" id="instrucciones"  style="display: none;">
+            <p>Seleccione una opcion de acuerdo a la imagen que tenga un parentezco con las respuestas</p>
+        </div>
         <div class="imagen-contenedor">
             <img src="Images/gato_01.jpeg" alt="Imagen de un gato" class="imagen" id="imagen">
         </div>
         <br>
-
+        <p id="pregunta">¿Qué animal es el que se muestra en la imagen?</p>
         <div class="opciones">
             <p id="pregunta">¿Qué animal es el que se muestra en la imagen?</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="opcion" id="opcion1" value="perro">
-                <label class="form-check-label" for="opcion1">Perro</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="opcion" id="opcion2" value="gato">
-                <label class="form-check-label" for="opcion2">Gato</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="opcion" id="opcion3" value="mono">
-                <label class="form-check-label" for="opcion3">Mono</label>
-            </div>
+          
         </div>
         <br>
 
         <div class="boton">
             <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
+            <button id="mensaje" class="btn btn-primary">Ayuda</button>        
             <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
         </div>
         <br>
@@ -53,66 +43,42 @@
             <button href="" class="btn btn-outline-info">Salir</button>
         </div>
         <br>
-        <!-- Script JavaScript -->
-        <script src="scripts/javascript.js"></script>
-
-        <script>
-            var imagenes = [
-                { src: "Images/gato_01.jpeg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "gato" },
-                { src: "Images/perro.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "perro" },
-                { src: "Images/mono.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "mono" }
-            ];
-
-            var imagenIndex = 0;
-
-            function mostrarImagen() {
-                var imagen = document.getElementById('imagen');
-                imagen.src = imagenes[imagenIndex].src;
-                document.getElementById('pregunta').innerText = imagenes[imagenIndex].pregunta;
-            }
-
-            function verificarRespuesta() {
-                var respuestaUsuario = document.querySelector('input[name="opcion"]:checked');
-                if (respuestaUsuario) {
-                    if (respuestaUsuario.value === imagenes[imagenIndex].respuesta) {
-                        mostrarAlerta("¡Respuesta correcta! Efectivamente es un " + respuestaUsuario.value + ".", "alert-success");
-                        siguienteImagen();
-                    } else {
-                        mostrarAlerta("Respuesta incorrecta. Inténtalo de nuevo.", "alert-danger");
-                    }
-                } else {
-                    mostrarAlerta("Por favor, seleccione una respuesta.", "alert-warning");
-                }
-            }
-
-            function siguienteImagen() {
-                imagenIndex++;
-                if (imagenIndex >= imagenes.length) {
-                    imagenIndex = 0; // Si llegamos al final, volvemos al principio
-                }
-                mostrarImagen();
-                limpiarSeleccion();
-            }
-
-            function limpiarSeleccion() {
-                document.querySelector('input[name="opcion"]:checked').checked = false;
-            }
-
-            function mostrarAlerta(mensaje, tipo) {
-                var alerta = document.createElement("div");
-                alerta.classList.add("alert", tipo,"alert-small");
-                alerta.textContent = mensaje;
-                document.body.appendChild(alerta);
-
-                // Ocultar la alerta después de 3 segundos
-                setTimeout(function() {
-                    alerta.remove();
-                }, 3000);
-            }
-
-            // Mostrar la primera imagen al cargar la página
-            mostrarImagen();
-        </script>
     </div>
+
+    <!-- Modal de Ayuda -->
+    <div class="modal fade" id="modalAyuda" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAyudaLabel">Ayuda</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Aquí puedes poner la información de ayuda que desees.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="scripts/javascript.js">
+function mostrarMensaje(texto, tipo) {
+    var mensaje = document.createElement("div");
+    mensaje.textContent = texto;
+    mensaje.classList.add("alert", "alert-" + tipo);
+    document.getElementById("mensaje").appendChild(mensaje);
+
+    // Ocultar el mensaje después de 3 segundos (3000 milisegundos)
+    setTimeout(function() {
+        mensaje.remove();
+    }, 3000);
+}
+
+    </script>
+   
+    
 </body>
 </html>
