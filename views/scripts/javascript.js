@@ -425,4 +425,5 @@ document.getElementById("formulario").addEventListener("submit", function(event)
     .catch(error => {
         console.error("Error de red:", error);
     });
+
 });
