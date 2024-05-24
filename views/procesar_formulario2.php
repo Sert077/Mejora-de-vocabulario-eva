@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Insertar los datos en la base de datos
             $sql = "INSERT INTO imagenes (imagen_path, opcion1, opcion2, opcion3) VALUES ('$target_file', '$opcion1', '$opcion2', '$opcion3')";
             if ($conn->query($sql) === TRUE) {
-                echo "El archivo " . basename($imagen["name"]) . " ha sido subido correctamente.";
+                header('Location: seleccion_multiple.html');
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }

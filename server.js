@@ -54,7 +54,7 @@ app.post('/procesar_formulario2.php', upload.single('imagen'), (req, res) => {
             return;
         }
 
-        res.send(`Datos insertados correctamente: <br> Opción 1: ${opcion1} <br> Opción 2: ${opcion2} <br> Opción 3: ${opcion3}`);
+        res.redirect('/seleccion_multiple.html');
     });
 });
 // Ruta para obtener los datos de las imágenes desde la base de datos

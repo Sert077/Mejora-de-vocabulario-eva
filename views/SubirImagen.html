@@ -32,12 +32,19 @@
                 <label for="opcion3" class="form-label">Opción 3 (Correcta)</label>
                 <input class="form-control" type="text" id="opcion3" name="opcion3" required>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary" onclick="redireccionar()">Enviar</button>
         </form>
     </div>
     </div>
 
     <!-- Script JavaScript -->
     <script src="scripts/javascript.js"></script>
+    <script>
+        function redireccionar() {
+            window.location.href = "completar_frase.html";
+        }
+    
+    </script>
 </body>
+
 </html>
