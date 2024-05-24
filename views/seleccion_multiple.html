@@ -16,13 +16,12 @@
             <h1>Identifique las Imágenes</h1>
         </div>
         <br>
-        <div class=""></div>
+        <div id="alert-container"></div>
         <div class="instrucciones" id="instrucciones"  style="display: none;">
             <p>Seleccione una opcion de acuerdo a la imagen que tenga un parentezco con las respuestas, por ejemplo
                 . Si la imagen parece un animal, una de las respuestas podria ser algun parentezco con el individuo o caractetistcas
             </p>
         </div>
-        
         <div class="d-flex justify-content-end">
             <button  id="boton"  class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button> 
         </div>       
@@ -149,16 +148,17 @@
     }
 
     function mostrarAlerta(mensaje, tipo) {
-        const alerta = document.createElement("div");
-        alerta.classList.add("alert", tipo, "alert-small");
-        alerta.textContent = mensaje;
-        document.body.appendChild(alerta);
+    const alerta = document.createElement("div");
+    alerta.classList.add("alert", tipo, "alert-small");
+    alerta.textContent = mensaje;
+    const alertContainer = document.getElementById('alert-container');
+    alertContainer.appendChild(alerta);
 
-        // Ocultar la alerta después de 3 segundos
-        setTimeout(() => {
-            alerta.remove();
-        }, 3000);
-    }
+    // Ocultar la alerta después de 3 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
+}
 
     // Obtener las imágenes desde el servidor al cargar la página
     window.onload = function() {
