@@ -57,7 +57,24 @@ app.post('/procesar_formulario2.php', upload.single('imagen'), (req, res) => {
         res.send(`Datos insertados correctamente: <br> Opción 1: ${opcion1} <br> Opción 2: ${opcion2} <br> Opción 3: ${opcion3}`);
     });
 });
+// Ruta para obtener los datos de las imágenes desde la base de datos
+app.get('/obtener_imagenes', (req, res) => {
+    const query = 'SELECT id, imagen, opcion1, opcion2, opcion3 FROM imagenes';
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener datos:', err.stack);
+            res.status(500).send('Error al obtener datos de la base de datos');
+            return;
+        }
 
+        // Convertir blob a base64
+        results.forEach(row => {
+            row.imagen = row.imagen.toString('base64');
+        });
+
+        res.json(results);
+    });
+});
 
 // Iniciar el servidor
 app.listen(PORT, () => {
