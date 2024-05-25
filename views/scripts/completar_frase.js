@@ -1,237 +1,176 @@
-let preguntas = [
-    {
-        enunciado: "La _ _ _ _ _ _ es una fruta muy dulce y con muchas pepas.",
-        opciones: ["Manzana", "Plátano", "Sandía", "Naranja"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "Me gusta mucho _ _ _ _ _ en el parque los domingos.",
-        opciones: ["Jugar", "Comer", "Leer", "Bailar"],
-        respuestaCorrecta: "a"
-    },
-    {
-        enunciado: "_ _ _ _ _ _ _ es el planeta más grande del sistema solar.",
-        opciones: ["Sol", "Luna", "Júpiter", "Marte"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "El color _ _ _ _ _ es muy relajante y se asocia con el mar.",
-        opciones: ["Rojo", "Verde", "Azul", "Amarillo"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "Los animales que solo comen plantas se llaman _ _ _ _ _ _ _ _ _ .",
-        opciones: ["Carnívoros", "Omnívoros", "Herbívoros", "Insectívoros"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "Una herramienta común para golpear clavos es el _ _ _ _ _ _ _ .",
-        opciones: ["Destornillador", "Martillo", "Alicate", "Sierra"],
-        respuestaCorrecta: "b"
-    },
-    {
-        enunciado: "El aparato que se utiliza para medir la temperatura es el _ _ _ _ _ _ _ _ _ .",
-        opciones: ["Barómetro", "Anemómetro", "Termómetro", "Higrómetro"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "La capital de Francia es _ _ _ _ _ .",
-        opciones: ["Berlín", "Madrid", "París", "Londres"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "El animal conocido por su largo cuello es la _ _ _ _ _ _ _ .",
-        opciones: ["Pantera", "Jirafa", "Elefante", "Rinoceronte"],
-        respuestaCorrecta: "b"
-    },
-    {
-        enunciado: "El instrumento musical que tiene teclas blancas y negras es el _ _ _ _ _ .",
-        opciones: ["Guitarra", "Violín", "Piano", "Flauta"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "El elemento químico que tiene el símbolo O es el _ _ _ _ _ _ _ _ .",
-        opciones: ["Hierro", "Oro", "Oxígeno", "Plata"],
-        respuestaCorrecta: "c"
-    },
-    {
-        enunciado: "El deporte que se juega con un bate y una pelota es el _ _ _ _ _ _ _ _ .",
-        opciones: ["Fútbol", "Baloncesto", "Béisbol", "Voleibol"],
-        respuestaCorrecta: "c"
-    }
-];
+var isEditing = false;
+    var savedSentences = {
+      "sentence1": "La Manzana es una fruta muy dulce y con muchas pepas.",
+      "sentence2": "La capital de Francia es Paris",
+      "sentence3": "El Juego que se juega con balón es el Fútbol"
+    };
 
-let indiceActual = 0;
-const preguntasPorGrupo = 3;
-
-function cargarNuevasPreguntas() {
-    document.querySelector('button[onclick="retrocederPreguntas()"]').disabled = false;
-    const preguntasContainer = document.getElementById('preguntasContainer');
-    preguntasContainer.innerHTML = ''; // Limpiar preguntas actuales antes de añadir nuevas
-
-    const fin = Math.min(indiceActual + preguntasPorGrupo, preguntas.length);
-    for (let i = indiceActual; i < fin; i++) {
-        const pregunta = preguntas[i];
-        const preguntaDiv = document.createElement('div');
-        preguntaDiv.className = 'pregunta-cf';
-        let opcionesHTML = '';
-        pregunta.opciones.forEach((opcion, idx) => {
-            const letra = ['a', 'b', 'c', 'd'][idx];
-            opcionesHTML += `<label><input type="radio" name="opcion${i + 1}" value="${letra}"> ${letra}) ${opcion}</label>`;
-        });
-        
-        preguntaDiv.innerHTML = `
-            <p>${i + 1}. ${pregunta.enunciado}</p>
-            <div class="opciones-cf">
-                ${opcionesHTML}
-            </div>
-        `;
-        preguntasContainer.appendChild(preguntaDiv);
-    }
-    indiceActual = fin; // Actualizamos el índice para la próxima carga
-    if (indiceActual >= preguntas.length) {
-        document.querySelector('button[onclick="cargarNuevasPreguntas()"]').disabled = true; // Deshabilitar botón si no hay más preguntas
-    }
-}
-
-function verificarRespuestas() {
-    let aciertos = 0;
-    let resultadoTexto = "";
-
-    for (let i = 0; i < preguntas.length; i++) {
-        const respuestaSeleccionadaElement = document.querySelector(`input[name="opcion${i + 1}"]:checked`);
-        
-        if (respuestaSeleccionadaElement) {
-            
-            const respuestaSeleccionada = respuestaSeleccionadaElement.value;
-            console.log(respuestaSeleccionada);
-            console.log(preguntas[i].respuestaCorrecta);
-            if (respuestaSeleccionada === preguntas[i].respuestaCorrecta) {
-                aciertos++;
-            }
-        }
+    function allowDrop(ev) {
+      ev.preventDefault();
     }
 
-    if (aciertos === preguntas.length) {
-        resultadoTexto = "¡Perfecto! Todas las respuestas son correctas.";
-    } else {
-        resultadoTexto = `Has acertado ${aciertos} preguntas.`;
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.textContent);
     }
 
-    document.getElementById("resultado").textContent = resultadoTexto;
-    setTimeout(() => {
-        document.getElementById("resultado").textContent = "";
-    }, 2000);
-}
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      var placeholder = ev.target;
 
-
-function retrocederPreguntas() {
-    document.querySelector('button[onclick="cargarNuevasPreguntas()"]').disabled = false;
-    let inicioAnterior = Math.max(indiceActual - preguntasPorGrupo * 2, 0);
-    // Si el índice actual es igual al inicio, no hay preguntas anteriores para mostrar
-    if (inicioAnterior === indiceActual) {
-        alert("No hay más preguntas anteriores.");
+      if (!placeholder.classList.contains('placeholder')) {
         return;
+      }
+
+      placeholder.textContent = data;
+
+      if (isEditing) {
+        var draggableElement = document.getElementById(data);
+        draggableElement.style.display = 'inline-block';
+      }
     }
-    // Actualizar el índice actual
-    indiceActual = inicioAnterior;
-    // Volver a cargar las preguntas
-    cargarNuevasPreguntas();
-    
-    // Desactivar el botón si no hay más preguntas anteriores
-    if (inicioAnterior === 0) {
-        document.querySelector('button[onclick="retrocederPreguntas()"]').disabled = true;
+
+
+    function addPlaceholder(sentenceId) {
+      var sentence = document.getElementById(sentenceId);
+      var textNode1 = document.createTextNode('  ');
+      var textNode2 = document.createTextNode('    ');
+      var placeholder1 = document.createElement('span');
+      var placeholder2 = document.createElement('span');
+
+      placeholder1.classList.add('placeholder');
+      placeholder1.setAttribute('ondrop', 'drop(event)');
+      placeholder1.setAttribute('ondragover', 'allowDrop(event)');
+      placeholder1.textContent = '______________';
+
+      sentence.appendChild(textNode1);
+      sentence.appendChild(placeholder1);
+      sentence.appendChild(textNode2);
     }
-}
 
-// Cargar las primeras tres preguntas al cargar la página
-document.addEventListener('DOMContentLoaded', cargarNuevasPreguntas);
-document.addEventListener('DOMContentLoaded', retrocederPreguntas);
+    function toggleEditMode() {
+      var editButton = document.getElementById('editButton');
+      var saveButton = document.getElementById('saveButton');
+      var verifyButton = document.getElementById('verifyButton');
+      var addButtons = document.querySelectorAll('[id^="addBtn"]');
 
-function editar() {
-    console.log(indiceActual);
-    document.querySelector('button[onclick="retrocederPreguntas()"]').disabled = false;
-    const preguntasContainer = document.getElementById('preguntasContainer');
-    preguntasContainer.innerHTML = ''; 
-
-    const letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']; 
-    const fin = Math.min(indiceActual - 3 + preguntasPorGrupo, preguntas.length);
-    for (let i = indiceActual - 3; i < fin; i++) {
-        const pregunta = preguntas[i];
-        const preguntaDiv = document.createElement('div');
-        preguntaDiv.className = 'pregunta-cf';
-        let opcionesHTML = '';
-        pregunta.opciones.forEach((opcion, idx) => {
-            opcionesHTML += `
-                <label>
-                    <input type="text" id="opcion${i + 1}${letras[idx]}" value="${opcion}">
-                </label>
-            `;
+      if (editButton.style.display !== 'none') {
+        editButton.style.display = 'none';
+        saveButton.style.display = 'block';
+        verifyButton.style.display = 'none';
+        addButtons.forEach(function (btn) {
+          btn.style.display = 'block';
         });
-        preguntaDiv.innerHTML = `
-            <p>${i + 1}. <input type="text" id="enunciado${i + 1}" value="${pregunta.enunciado}"></p>
-            <div class="opciones-cf">
-                ${pregunta.opciones.map((opcion, idx) => `
-                    <label>
-                        <input type="radio" name="respuesta${i + 1}" value="${letras[idx]}" ${pregunta.respuestaCorrecta === letras[idx] ? 'checked' : ''}>
-                        <input type="text" class="opcion-input" value="${opcion}">
-                    </label>
-                `).join('')}
-            </div>
-        `;
-        preguntasContainer.appendChild(preguntaDiv);
+        isEditing = true;
+
+        document.querySelectorAll('p[id^="sentence"]').forEach(function (sentence) {
+          sentence.contentEditable = true;
+          var placeholders = sentence.querySelectorAll('.placeholder');
+          placeholders.forEach(function (placeholder) {
+            if (placeholder.textContent !== '______________') {
+              var currentOption = placeholder.textContent;
+              var options = document.querySelectorAll('.option');
+              for (var i = 0; i < options.length; i++) {
+                if (options[i].textContent === currentOption) {
+                  options[i].style.display = 'inline-block';
+                  break;
+                }
+              }
+              placeholder.textContent = '______________';
+            }
+          });
+        });
+        document.querySelectorAll('.option').forEach(function (option) {
+          option.contentEditable = true;
+          option.style.display = 'inline-block';
+        });
+
+      } else {
+        saveButton.style.display = 'none';
+        editButton.style.display = 'block';
+        verifyButton.style.display = 'block';
+        addButtons.forEach(function (btn) {
+          btn.style.display = 'none';
+        });
+        isEditing = false;
+
+        document.querySelectorAll('p[id^="sentence"]').forEach(function (sentence) {
+          sentence.contentEditable = false;
+        });
+        document.querySelectorAll('.option').forEach(function (option) {
+          option.contentEditable = false;
+        });
+      }
     }
-    // Mostrar botón "Guardar" y ocultar botón "Editar"
-    document.getElementById('botonGuardar').style.display = 'inline-block';
-    document.getElementById('botonEditar').style.display = 'none';
-    indiceActual = fin; // Actualizamos el índice para la próxima carga
-    if (indiceActual >= preguntas.length) {
-        document.querySelector('button[onclick="cargarNuevasPreguntas()"]').disabled = true; // Deshabilitar botón si no hay más preguntas
+
+    function saveChanges() {
+      if (isEditing) {
+        var allFilled = true;
+
+        var sentences = document.querySelectorAll('[id^="sentence"]');
+        sentences.forEach(function (sentence) {
+          var placeholders = sentence.querySelectorAll('.placeholder');
+          placeholders.forEach(function (placeholder) {
+            if (placeholder.textContent === '______________') {
+              allFilled = false;
+            }
+          });
+        });
+
+        if (!allFilled) {
+          resultado.style.color = "red";
+          mostrarMensajeEnDiv("Debes rellenar todos los espacios con la respuesta correcta antes de guardar.");
+          return;
+        }
+
+        sentences.forEach(function (sentence) {
+          savedSentences[sentence.id] = sentence.textContent.trim();
+        });
+
+        document.querySelectorAll('.option').forEach(function (option) {
+          if (option.style.display !== 'none') {
+            option.style.display = 'none';
+          }
+        });
+
+        document.querySelectorAll('.options').forEach(function (options) {
+          options.querySelectorAll('.option').forEach(function (option) {
+            option.style.display = 'inline-block';
+          });
+        });
+
+        toggleEditMode();
+
+        sentences.forEach(function (sentence) {
+          var placeholders = sentence.querySelectorAll('.placeholder');
+          placeholders.forEach(function (placeholder) {
+            if (placeholder.textContent !== '______________') {
+              placeholder.textContent = '______________'
+            }
+          });
+        });
+      } else {
+        resultado.style.color = "red";
+        mostrarMensajeEnDiv("Debes entrar en modo edición primero.");
+      }
     }
-    document.getElementById('atras').style.display = 'none';
-    document.getElementById('sig').style.display = 'none';
-    document.getElementById('veri').style.display = 'none';
-}
 
-
-function guardarCambios() {
-    
-    const preguntasContainer = document.getElementById('preguntasContainer');
-    // Recorrer cada elemento dentro del contenedor de preguntas editadas
-    preguntasContainer.querySelectorAll('.pregunta-cf').forEach((preguntaDiv, index) => {
-        const enunciadoInput = preguntaDiv.querySelector(`#enunciado${indiceActual-3 + index + 1}`);
-        const opcionesInputs = preguntaDiv.querySelectorAll(`.opcion-input`);
-
-        // Actualizar la pregunta correspondiente en el array 'preguntas'
-        preguntas[indiceActual-3 + index].enunciado = enunciadoInput.value;
-        preguntas[indiceActual-3 + index].opciones = Array.from(opcionesInputs).map(input => input.value);
-
-        // Actualizar la respuesta correcta
-        const respuestaCorrectaInput = preguntaDiv.querySelector(`input[name="respuesta${indiceActual-3 + index + 1}"]:checked`);
-        preguntas[indiceActual-3 + index].respuestaCorrecta = respuestaCorrectaInput ? respuestaCorrectaInput.value : null;
-    });
-
-    // Guardar los cambios en localStorage
-    localStorage.setItem('preguntas', JSON.stringify(preguntas));
-
-    // Mostrar nuevamente el botón "Editar" y ocultar el botón "Guardar"
-    document.getElementById('botonEditar').style.display = 'inline-block';
-    document.getElementById('botonGuardar').style.display = 'none';
-
-    // Volver a cargar las preguntas
-    indiceActual = indiceActual -3;
-    cargarNuevasPreguntas();
-    document.getElementById('atras').style.display = 'inline-block';
-    document.getElementById('sig').style.display = 'inline-block';
-    document.getElementById('veri').style.display = 'inline-block';
-}
-
-function cargarPreguntasDesdeLocalStorage() {
-    const preguntasGuardadas = localStorage.getItem('preguntas');
-    console.log(preguntasGuardadas);
-    if (preguntasGuardadas) {
-        preguntas = JSON.parse(preguntasGuardadas);
+    function verifySentences() {
+      var currentSentences = document.querySelectorAll('[id^="sentence"]');
+      var correctCount = 0;
+      currentSentences.forEach(function (sentence) {
+        if (sentence.textContent.trim() === savedSentences[sentence.id]) {
+          correctCount++;
+        }
+      });
+      resultado.style.color = "green";
+      mostrarMensajeEnDiv("Número de oraciones correctas: " + correctCount);
     }
-}
+    function mostrarMensajeEnDiv(mensaje) {
+      var resultadoDiv = document.getElementById("resultado");
+      resultadoDiv.textContent = mensaje;
 
-document.addEventListener('DOMContentLoaded', cargarPreguntasDesdeLocalStorage);
+      setTimeout(function () {
+        resultadoDiv.textContent = '';
+      }, 2000);
+    }
