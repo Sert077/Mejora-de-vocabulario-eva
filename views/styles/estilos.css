@@ -173,4 +173,41 @@ body {
         color: #000; /* Color de texto negro para los títulos, las preguntas y las opciones */
     }
 
-    
+    .pregunta-cf {
+        display: flex;
+        flex-direction: column; /* Apilar elementos verticalmente */
+        margin-bottom: 10px; /* Espacio entre cada pregunta */
+    }
+
+    input[type="text"] {
+        width: calc(100% - 50px); /* Ancho del campo de entrada */
+        padding: 5px; /* Añadir relleno para mejorar la apariencia */
+        box-sizing: border-box; /* Incluir el relleno en el ancho total */
+        margin-bottom: 5px; /* Espacio entre el campo de entrada y las opciones */
+    }
+
+    #botonGuardar{
+        display: none;
+    }
+
+
+    @keyframes carrusel {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+.imagen-contenedor {
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen {
+  width: 100%;
+  height: auto;
+  animation: carrusel 1s ease-in-out;
+}
+

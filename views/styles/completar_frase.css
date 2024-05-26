@@ -1,0 +1,124 @@
+#sentence1 span {
+    background-color: white;
+    /* Fondo blanco */
+    color: black;
+    /* Texto negro */
+  }
+
+  #sentence2 span {
+    background-color: white;
+    /* Fondo blanco */
+    color: black;
+    /* Texto negro */
+  }
+
+  #sentence3 span {
+    background-color: white;
+    /* Fondo blanco */
+    color: black;
+    /* Texto negro */
+  }
+
+  .option {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    color: black;
+  }
+
+  .placeholder {
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    vertical-align: unset;
+    opacity: 1;
+
+  }
+
+  .option:hover {
+    background-color: #f0f0f0;
+  }
+
+  span {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  body {
+    background-color: #000028;
+    color: #f0f0f0;
+    margin-left: 15%;
+    margin-right: 10%;
+  }
+
+  .titulo {
+    width: 50%;
+    margin-top: 5%;
+  }
+
+  #resultado {
+    margin-top: 20px;
+    font-weight: bold;
+    color: blue;
+  }
+
+  .espacio {
+    margin-top: 10px;
+    width: 80%;
+  }
+
+  p {
+    margin-top: 1%;
+  }
+
+  .frase-cf {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+  }
+
+  .pregunta-cf {
+    margin-bottom: 20px;
+  }
+
+
+  .frase-cf p,
+  .opciones-cf label {
+    color: #000;
+  }
+
+
+  input[type="text"] {
+    width: calc(100% - 50px);
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+  }
+
+
+  .boton {
+    display: flex;
+    /* Establece el contenedor como flexbox */
+    margin-top: 1%;
+  }
+
+  .boton2 button {
+    display: flex;
+    /* Establece el contenedor como flexbox */
+    margin-top: 1%;
+
+  }
+
+  .boton button {
+
+    margin: 0 5px;
+    /* Añade un margen a los botones para separarlos */
+  }
