@@ -1,8 +1,16 @@
 /*Página cuestionario de vocabulario*/
 window.onload = function() {
     cambiarOracion();
-    convertirTexto()
+    convertirTexto();
+    
+    var role = getParameterByName('role');
+    if (role === 'teacher') {
+        mostrarInput(true);
+    } else {
+        mostrarInput(false);
+    }
 };
+
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -18,19 +26,19 @@ function drop(event) {
   
     // Verificar si el destino es el contenedor de la oración
     if (event.target.id === "contenedor-oracion") {
-      // Si el destino es el contenedor de la oración, agregar la palabra al contenedor de oración
-      event.target.appendChild(draggedElement);
+        // Si el destino es el contenedor de la oración, agregar la palabra al contenedor de oración
+        event.target.appendChild(draggedElement);
     } else if (event.target.id === "contenedor-palabras") {
-      // Si el destino es el contenedor de palabras, devolver la palabra al contenedor de palabras original
-      var contenedorPalabras = document.getElementById("contenedor-palabras");
-      contenedorPalabras.appendChild(draggedElement);
+        // Si el destino es el contenedor de palabras, devolver la palabra al contenedor de palabras original
+        var contenedorPalabras = document.getElementById("contenedor-palabras");
+        contenedorPalabras.appendChild(draggedElement);
     } else if (event.target.id === "area-devolucion") {
-      // Si el destino es el área de devolución, devolver la palabra al contenedor de palabras original
-      var contenedorPalabras = document.getElementById("contenedor-palabras");
-      contenedorPalabras.appendChild(draggedElement);
+        // Si el destino es el área de devolución, devolver la palabra al contenedor de palabras original
+        var contenedorPalabras = document.getElementById("contenedor-palabras");
+        contenedorPalabras.appendChild(draggedElement);
     }
 }
-  
+
 // Función para proporcionar una pista al usuario
 function obtenerPista() {
     // Obtener la oración completa y dividirla en palabras
@@ -62,7 +70,16 @@ function obtenerPista() {
     }
 }
 
-// Función para verificar la oración del usuario y resaltar errores
+var oracionesCorrectas = 0; // Contador global de oraciones correctas
+var totalOraciones = 6; // Total de oraciones en el cuestionario
+
+// Función para actualizar la calificación en el HTML
+function actualizarCalificacion() {
+    var calificacion = (oracionesCorrectas / totalOraciones) * 100;
+    document.getElementById("calificacion").textContent = "Calificación: " + calificacion.toFixed(2) + "%";
+}
+
+// Modificar la función verificarOracion para incrementar el contador cuando la oración sea correcta
 function verificarOracion() {
     var contenedor = document.getElementById("contenedor-oracion");
     var palabras = contenedor.querySelectorAll("div");
@@ -70,47 +87,44 @@ function verificarOracion() {
     var fraseIngresada = document.getElementById("inputTexto").value.trim(); 
     var resultado = document.getElementById("resultado");
 
-    // Obtener la cantidad de palabras necesarias para completar la oración
     var palabrasCorrectas = oraciones[indiceActual].split(" ");
     var cantidadPalabrasNecesarias = palabrasCorrectas.length;
-
-    // Obtener la cantidad de palabras ingresadas por el usuario
     var palabrasIngresadas = fraseIngresada.split(" ");
 
-    // Verificar si el usuario ha ingresado al menos la cantidad de palabras necesarias para completar la oración
     if (palabrasIngresadas.length < cantidadPalabrasNecesarias) {
         resultado.textContent = "Ingresa más palabras para completar la oración.";
         resultado.style.color = "red";
-        return; // Salir de la función si no se ha ingresado suficientes palabras
+        return;
     }
 
     if (fraseAcomodada === fraseIngresada) {
         resultado.textContent = "¡Excelente, oración completada correctamente!";
         resultado.style.color = "green";
-        
-        // Resaltar las palabras en verde si están en la posición correcta
+
+        // Incrementar el contador de oraciones correctas
+        oracionesCorrectas++;
+        actualizarCalificacion(); // Actualizar la calificación en el HTML
+
         for (var i = 0; i < palabras.length; i++) {
             if (palabras[i].textContent === palabrasCorrectas[i]) {
                 palabras[i].style.color = "green";
             } else {
-                palabras[i].style.color = ""; // Restablecer el color si la palabra no está en la posición correcta
+                palabras[i].style.color = "";
             }
         }
     } else {
         resultado.textContent = "La oración no está en el orden correcto. ¡Inténtalo de nuevo!";
         resultado.style.color = "red";
 
-        // Resaltar las palabras en rojo si no están en la posición correcta
         for (var i = 0; i < palabras.length; i++) {
             if (palabras[i].textContent !== palabrasIngresadas[i]) {
                 palabras[i].style.color = "red";
             } else {
-                palabras[i].style.color = ""; // Restablecer el color si la palabra está en la posición correcta
+                palabras[i].style.color = "";
             }
         }
     }
 }
-
 
 function convertirTexto() {
     var contenedorOracion = document.getElementById("contenedor-oracion");
@@ -136,7 +150,6 @@ function convertirTexto() {
         contenedor.appendChild(div); 
     });
 }
-
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -166,7 +179,6 @@ function reset() {
     }
 }
 
-
 var oraciones = [
     "Escuchar atentamente no es lo mismo que oír",
     "Las estrellas titilaban en el cielo nocturno",
@@ -185,12 +197,15 @@ function cambiarOracion() {
 }
 
 // Función para mostrar u ocultar el input
-function mostrarInput() {
+function mostrarInput(mostrar) {
     var input = document.getElementById('inputTexto');
-    if (input.style.display === 'none') {
+    var botonGuardar = document.querySelector('button[onclick^="convertirGuardar"]');
+    if (mostrar) {
         input.style.display = 'block';
+        botonGuardar.style.display = 'block';
     } else {
         input.style.display = 'none';
+        botonGuardar.style.display = 'none';
     }
 }
 
@@ -206,13 +221,18 @@ function guardarOraciones(oraciones) {
 }
 
 // Cargar oraciones guardadas al cargar la página
-// Cargar oraciones guardadas al cargar la página
 window.onload = function() {
     var oracionesGuardadas = obtenerOracionesGuardadas();
     if (oracionesGuardadas) {
         oraciones = oracionesGuardadas;
     }
     cambiarOraciones();
+    var role = getParameterByName('role');
+    if (role === 'teacher') {
+        mostrarInput(true);
+    } else {
+        mostrarInput(false);
+    }
 };
 
 // Función para cambiar la oración mostrada en el input

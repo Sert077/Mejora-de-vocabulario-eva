@@ -1,0 +1,213 @@
+#contenedor-palabras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+   
+}
+.palabra {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+.palabra:hover {
+    background-color: #f0f0f0;
+}
+#contenedor-oracion {
+    border: 2px dashed #333;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: #003077 ;
+    background: rgba(45, 129, 255, 0.1);
+    width: 90%;
+}
+.palabra-oracion {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+}
+.correcto {
+    color: green;
+}
+.titulo{
+    width: 50%;
+    margin-top: 5%;
+}
+
+body {
+    background-color: #000028;
+    color: #f0f0f0;
+    margin-left: 9%;
+
+}
+.sub {
+    margin-top: 5%; /* Espacio en la parte superior */
+    text-align: left; /* Centrar el contenido */
+    color: white; /* Color del texto */
+    padding: 10px; /* Espaciado interior */
+}
+.espacio{
+    margin-top: 10px;
+    width: 30%;
+    }
+
+    /*.entrada{
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        justify-content: center; 
+        height: 200%;                  
+    }*/
+    
+    .entrada input[type="text"] {
+        margin-bottom: 2%;
+        background-color: transparent;
+        color: white;                  
+        border: 1px solid white;     
+        padding: 8px;                  
+        width: 50%;                    
+    }
+
+    .entrada button {
+        margin-bottom: 2%;
+        padding: 5px 10px; 
+        background-color: green; 
+        color: white; 
+        border-radius: 5px;
+        font-size: 16px; 
+        cursor: pointer; 
+        transition: all 0.3s ease; 
+        border: none;
+    }
+    
+    .entrada button:hover {
+        background-color: #17a2b8; 
+        color: white; 
+    }
+    
+    .entrada button:active {
+        transform: scale(0.98); 
+    }
+    
+    .entrada button:focus {
+        border-color: #0d6efd; 
+    }
+    
+
+
+    p {
+        margin-top: 1%;
+    }
+    .imagen-contenedor {
+        border: 10px solid #ccc; /* Borde de 2px sólido con color gris */
+        width: 600px; /* Ancho del marco */
+        height: 400px; /* Altura del marco */
+        overflow: hidden;
+        border-radius: 5px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .imagen {
+        width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
+        height: auto; /* Altura automática para mantener la proporción de la imagen */
+        display: block; /* Asegura que la imagen sea un elemento de bloque */
+    }
+    .boton2{
+        text-align: right;
+    }
+    .alert-small {
+        width: 90%; /* Define el ancho del alerta */
+    }
+
+
+
+    .frase-cf {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+    }
+
+    .pregunta-cf {
+        margin-bottom: 20px;
+    }
+
+    .pregunta-cf p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .opciones-cf {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .opciones-cf label {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .opciones-cf label:hover {
+        background-color: #f0f0f0;
+    }
+
+    .frase-cf p, .opciones-cf label {
+        color: #000; /* Color de texto negro para los títulos, las preguntas y las opciones */
+    }
+
+    .pregunta-cf {
+        display: flex;
+        flex-direction: column; /* Apilar elementos verticalmente */
+        margin-bottom: 10px; /* Espacio entre cada pregunta */
+    }
+
+    input[type="text"] {
+        width: calc(100% - 50px); /* Ancho del campo de entrada */
+        padding: 5px; /* Añadir relleno para mejorar la apariencia */
+        box-sizing: border-box; /* Incluir el relleno en el ancho total */
+        margin-bottom: 5px; /* Espacio entre el campo de entrada y las opciones */
+    }
+
+    #botonGuardar{
+        display: none;
+    }
+
+
+    @keyframes carrusel {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+.imagen-contenedor {
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen {
+  width: 100%;
+  height: auto;
+  animation: carrusel 1s ease-in-out;
+}
+

@@ -122,3 +122,8 @@
     margin: 0 5px;
     /* Añade un margen a los botones para separarlos */
   }
+
+  #calificacion {
+    color: black;
+  }
+  
