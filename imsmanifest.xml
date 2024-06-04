@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="com.example.vocab" version="1.2" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_v1p1.xsd
+          http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_v1p2.xsd">
+
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+    <lom xmlns="http://ltsc.ieee.org/xsd/LOM">
+      <general>
+        <identifier>
+          <catalog>URL</catalog>
+          <entry>http://www.example.com/vocab</entry>
+        </identifier>
+        <title>
+          <string>Mejora de Vocabulario</string>
+        </title>
+        <language>es</language>
+        <description>
+          <string>Una aplicación para mejorar el vocabulario en español.</string>
+        </description>
+        <keyword>
+          <string>vocabulario</string>
+        </keyword>
+      </general>
+    </lom>
+  </metadata>
+
+  <organizations default="ORG">
+    <organization identifier="ORG">
+      <title>Mejora de Vocabulario</title>
+      <item identifier="ITEM-1" identifierref="RES-1">
+        <title>Actividad Principal</title>
+      </item>
+    </organization>
+  </organizations>
+
+  <resources>
+    <resource identifier="RES-1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="index.html"/>
+      <file href="views/cuestionario.html"/>
+      <file href="views/seleccion_multiple.html"/>
+      <file href="views/completar_frase.html"/>
+      <file href="views/formulario.html"/>
+      <file href="views/prueba.html"/>
+      <file href="views/Subirimagen.html"/>
+      <file href="views/styles/estilos.css"/>
+      <file href="views/styles/completar_frase.css"/>
+      <file href="views/scripts/javascript.js"/>
+      <file href="views/scripts/seleccion_imagenes.js"/>
+      <file href="views/scripts/images.js"/>
+      <file href="views/scripts/completar_frase.js"/>
+    </resource>
+  </resources>
+</manifest>
