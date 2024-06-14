@@ -71,7 +71,7 @@ function toggleEditMode() {
   var saveButton = document.getElementById('saveButton');
   var verifyButton = document.getElementById('verifyButton');
   var addButtons = document.querySelectorAll('[id^="addBtn"]');
-
+  
   if (editButton.style.display !== 'none') {
     editButton.style.display = 'none';
     saveButton.style.display = 'block';
@@ -101,6 +101,13 @@ function toggleEditMode() {
     document.querySelectorAll('.option').forEach(function (option) {
       option.contentEditable = true;
       option.style.display = 'inline-block';
+    });
+    document.querySelectorAll('#GenOpciones').forEach(function (option) {
+      option.style.display = 'inline-block';
+    });
+
+    document.querySelectorAll('#scoreButton').forEach(function (option) {
+      option.style.display = 'none';
     });
 
   } else {
@@ -166,6 +173,12 @@ function saveChanges() {
           placeholder.textContent = '______________'
         }
       });
+    });
+    document.querySelectorAll('#GenOpciones').forEach(function (option) {
+      option.style.display = 'none';
+    });
+    document.querySelectorAll('#scoreButton').forEach(function (option) {
+      option.style.display = 'inline-block';
     });
   } else {
     resultado.style.color = "red";
@@ -265,6 +278,34 @@ function loadState() {
       option.style.display = 'inline-block';
     }
   });
+}
+
+function generateOptions() {
+  // Encuentra el contenedor padre del botón que fue clicado
+  const button = event.target;
+  const container = button.closest('.container');
+  
+  // Encuentra el div con la clase 'options' dentro de este contenedor
+  const optionsDiv = container.querySelector('.options');
+  
+  // Define nuevas opciones (puedes modificar estas opciones según tus necesidades)
+  const newOptions = [
+    { id: 'Opción1', text: 'Opción' },
+  ];
+  
+  // Añade las nuevas opciones al div de opciones
+  newOptions.forEach(option => {
+    const span = document.createElement('span');
+    span.classList.add('option');
+    span.setAttribute('draggable', 'true');
+    span.setAttribute('ondragstart', 'drag(event)');
+    span.id = option.id;
+    span.textContent = option.text;
+    span.setAttribute('contenteditable', 'true');
+    optionsDiv.appendChild(span);
+    
+  });
+  
 }
 
 // Inicializar SCORM cuando la página se carga

@@ -17,8 +17,7 @@
       <p>Completa cada frase arrastrando la palabra:</p>
       <div class="container">
         <p id="sentence1" ondrop="drop(event)" ondragover="allowDrop(event)">La <span class="placeholder"
-            ondrop="drop(event)" ondragover="allowDrop(event)">______________</span> es una fruta muy dulce y con muchas
-          pepas.</p>
+            ondrop="drop(event)" ondragover="allowDrop(event)">______________</span> es una fruta muy dulce y con muchas pepas.</p>
         <div class="options" id="options1">
           <span class="option" draggable="true" ondragstart="drag(event)" id="Manzana">Manzana</span>
           <span class="option" draggable="true" ondragstart="drag(event)" id="Plátano">Plátano</span>
@@ -28,6 +27,7 @@
         <div class="boton2">
           <button onclick="addPlaceholder('sentence1')" id="addBtn1" style="display: none;" class="btn btn-primary">Añadir
             espacio</button>
+          <button id="GenOpciones" onclick="generateOptions()" style="display: none;" class="btn btn-primary">Añadir opción</button>
         </div>
       </div>
   
@@ -43,6 +43,7 @@
         <div class="boton2">
           <button onclick="addPlaceholder('sentence2')" id="addBtn2" style="display: none;" class="btn btn-primary">Añadir
             espacio</button>
+            <button id="GenOpciones" onclick="generateOptions()" style="display: none;" class="btn btn-primary">Añadir opción</button>
         </div>
   
       </div>
@@ -60,6 +61,7 @@
         <div class="boton2">
           <button onclick="addPlaceholder('sentence3')" id="addBtn3" style="display: none;" class="btn btn-primary">Añadir
             espacio</button>
+          <button id="GenOpciones" onclick="generateOptions()" style="display: none;" class="btn btn-primary">Añadir opción</button>
         </div>
   
       </div>

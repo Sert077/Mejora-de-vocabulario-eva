@@ -7,38 +7,43 @@
     <!-- Enlaces a Bootstrap y a tu archivo de estilos -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/estilos.css">
-
 </head>
-
+<script>
+    function redireccionar() {
+            window.location.href = "completar_frase.html";
+        }
+</script>
 <body>
     <div class="container">
         <div class="titulo">
             <h1>Identifique las Imágenes</h1>
         </div>
         <br>
-        <div id="alert-container"></div>
-        <div class="instrucciones" id="instrucciones"  style="display: none;">
-            <p>Seleccione una opcion de acuerdo a la imagen que tenga un parentezco con las respuestas, por ejemplo
-                . Si la imagen parece un animal, una de las respuestas podria ser algun parentezco con el individuo o caractetistcas
-            </p>
+        <div class=""></div>
+        <div class="instrucciones" id="instrucciones" style="display: none;">
+            <p>Seleccione una opción de acuerdo a la imagen que tenga un parecido con las respuestas, por ejemplo, si la imagen parece un animal, una de las respuestas podría ser algún pariente o características del individuo.</p>
         </div>
+        <div id="alert-container"></div>
         <div class="d-flex justify-content-end">
-            <button  id="boton"  class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button> 
-        </div>       
+            <button id="boton" class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button>
+        </div>
+        
+
         <div class="imagen-contenedor">
-            <img src="" alt="Imagen" class="imagen" id="imagen">
+            <img src="Images/gato_01.jpeg" alt="Imagen de un gato" class="imagen" id="imagen">
         </div>
 
         <br>
         <p id="pregunta">¿Qué animal es el que se muestra en la imagen?</p>
-        <div class="opciones" id="opciones">
-            <!-- Opciones de respuesta se cargarán aquí -->
+
+        <!-- Contenedor de opciones de respuesta justo debajo de las instrucciones -->
+        <div id="opciones-container" class="opciones">
         </div>
         <br>
 
         <div class="boton">
             <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
-            <button  id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>
+            <button id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>        
             <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
         </div>
         <br>
@@ -50,126 +55,21 @@
 
     <!-- Modal de Ayuda -->
    
-
     <!-- Script JavaScript -->
-   
+    <script src="scripts/javascript.js"></script>
     <script>
-    function mostrar() {
-        var instrucciones = document.getElementById('instrucciones');
+        function mostrar() {
+            var instrucciones = document.getElementById('instrucciones');
             if (instrucciones.style.display === 'none' || instrucciones.style.display === '') {
                 instrucciones.style.display = 'block';
             } else {
                 instrucciones.style.display = 'none';
             }
         }
-        function redireccionar() {
-            window.location.href = "completar_frase.html";
-        }
+
         function redireccionar2() {
             window.location.href = "SubirImagen.html";
         }
-        </script>
-  
-  <script>
-    function mostrar() {
-        var instrucciones = document.getElementById('instrucciones');
-        if (instrucciones.style.display === 'none' || instrucciones.style.display === '') {
-            instrucciones.style.display = 'block';
-        } else {
-            instrucciones.style.display = 'none';
-        }
-    }
-
-    function redireccionar() {
-        window.location.href = "completar_frase.html";
-    }
-
-    function redireccionar2() {
-        window.location.href = "SubirImagen.html";
-    }
-
-    let imagenIndex = 0;
-    let imagenes = [];
-
-    function mostrarImagen() {
-        if (imagenes.length > 0) {
-            const imagenData = imagenes[imagenIndex];
-            const imagenContenedor = document.querySelector('.imagen-contenedor img');
-            imagenContenedor.src = `data:image/jpeg;base64,${imagenData.imagen}`;
-            imagenContenedor.alt = `Imagen de ${imagenData.opcion3}`;
-
-            document.getElementById('pregunta').innerText = `¿Qué animal es el que se muestra en la imagen?`;
-
-            const opcionesContainer = document.getElementById('opciones');
-            opcionesContainer.innerHTML = '';
-            [imagenData.opcion1, imagenData.opcion2, imagenData.opcion3].forEach((opcion, index) => {
-                const input = document.createElement('input');
-                input.setAttribute('type', 'radio');
-                input.setAttribute('name', 'opcion');
-                input.setAttribute('id', 'opcion' + (index + 1));
-                input.setAttribute('value', opcion);
-                input.classList.add('form-check-input');
-
-                const label = document.createElement('label');
-                label.setAttribute('for', 'opcion' + (index + 1));
-                label.classList.add('form-check-label');
-                label.innerText = opcion;
-
-                const div = document.createElement('div');
-                div.classList.add('form-check', 'form-check-inline');
-                div.appendChild(input);
-                div.appendChild(label);
-
-                opcionesContainer.appendChild(div);
-            });
-        }
-    }
-
-    function verificarRespuesta() {
-        const respuestaUsuario = document.querySelector('input[name="opcion"]:checked');
-        if (respuestaUsuario) {
-            if (respuestaUsuario.value === imagenes[imagenIndex].opcion3) {
-                mostrarAlerta("¡Respuesta correcta! Efectivamente es un " + respuestaUsuario.value + ".", "alert-success");
-                avanzarCarrusel();
-            } else {
-                mostrarAlerta("Respuesta incorrecta. Inténtalo de nuevo.", "alert-danger");
-            }
-        } else {
-            mostrarAlerta("Por favor, seleccione una respuesta.", "alert-warning");
-        }
-    }
-
-    function avanzarCarrusel() {
-        imagenIndex++;
-        if (imagenIndex >= imagenes.length) {
-            imagenIndex = 0; // Si llegamos al final, volvemos al principio
-        }
-        mostrarImagen();
-    }
-
-    function mostrarAlerta(mensaje, tipo) {
-    const alerta = document.createElement("div");
-    alerta.classList.add("alert", tipo, "alert-small");
-    alerta.textContent = mensaje;
-    const alertContainer = document.getElementById('alert-container');
-    alertContainer.appendChild(alerta);
-
-    // Ocultar la alerta después de 3 segundos
-    setTimeout(() => {
-        alerta.remove();
-    }, 3000);
-}
-
-    // Obtener las imágenes desde el servidor al cargar la página
-    window.onload = function() {
-        fetch('/obtener_imagenes')
-            .then(response => response.json())
-            .then(data => {
-                imagenes = data;
-                mostrarImagen();
-            })
-            .catch(error => console.error('Error al obtener datos:', error));
-    };
-</script>
+    </script>
 </body>
 </html>
