@@ -1,3 +1,4 @@
+// Array de imágenes con preguntas y respuestas
 var imagenes = [
     { 
         src: "Images/gato_01.jpeg", 
@@ -18,64 +19,60 @@ var imagenes = [
         opciones: ["Aguila", "delfin", "mono"]
     },
     { 
-        src: "Images/cebra.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "cebra", 
-        opciones: ["Aguila", "delfin", "cebra"]
-    },
-    { 
-        src: "Images/jirafa.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "jirafa" ,
-        opciones: ["Aguila", "jirafa", "delfin"]
-    },
-    { 
-        src: "Images/hipo.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "hipopotamo" ,
+        src: "Images/hipo.jpg", 
+        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+        respuesta: "hipopotamo",
         opciones: ["hipopotamo", "delfin", "mandir"]
     },
     { 
-        src: "Images/leon.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "leon",
+        src: "Images/leon.jpg", 
+        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+        respuesta: "leon",
         opciones: ["Aguila", "delfin", "leon"]
-    },
-    { 
-        src: "Images/tiburon.jpg", pregunta: "¿Qué animal es el que se muestra en la imagen?", respuesta: "tiburon" ,
-        opciones: ["Aguila", "delfin", "tiburon"]
-    },
-
+    }
 ];
+
+// Función para cargar los datos almacenados en localStorage si existen
+function cargarDatosDesdeLocalStorage() {
+    var preguntasGuardadas = localStorage.getItem('preguntas_seleccion_multiple');
+    if (preguntasGuardadas) {
+        imagenes = JSON.parse(preguntasGuardadas);
+    }
+}
+
+// Función para guardar los datos actualizados en localStorage
+function guardarDatosEnLocalStorage() {
+    localStorage.setItem('preguntas_seleccion_multiple', JSON.stringify(imagenes));
+}
+
+// Cargar datos desde localStorage al cargar la página
 window.onload = function() {
+    cargarDatosDesdeLocalStorage();
     mostrarImagen();
 };
+
 var imagenIndex = 0;
 
 function mostrarImagen() {
-    // Obtener el contenedor de la imagen
     var imagenContenedor = document.querySelector('.imagen-contenedor');
     
-    // Eliminar la imagen actual
     var imagenActual = document.querySelector('.imagen');
     if (imagenActual) {
         imagenActual.remove();
     }
     
-    // Crear una nueva imagen con la clase 'imagen' y el efecto de carrusel
     var nuevaImagen = document.createElement('img');
     nuevaImagen.src = imagenes[imagenIndex].src;
     nuevaImagen.alt = "Imagen de un " + imagenes[imagenIndex].respuesta;
     nuevaImagen.classList.add('imagen');
-
-    // Agregar la nueva imagen al contenedor
     imagenContenedor.appendChild(nuevaImagen);
 
-    // Obtener el contenedor de opciones
-    var opcionesContainer = document.querySelector('.opciones');
+    var opcionesContainer = document.getElementById('opciones-container');
     opcionesContainer.innerHTML = '';
 
-    // Obtener las opciones de respuesta para la imagen actual
-    var opciones = imagenes[imagenIndex].opciones.slice(); // Hacer una copia del arreglo de opciones
+    var opciones = imagenes[imagenIndex].opciones.slice();
     var respuesta = imagenes[imagenIndex].respuesta;
 
-    // Insertar la respuesta correcta en una posición aleatoria
-    var randomIndex = Math.floor(Math.random() * opciones.length);
-    //opciones.splice(randomIndex, 0, respuesta);
-
-    // Generar las opciones de respuesta dinámicamente
     opciones.forEach(function(opcion, index) {
         var input = document.createElement('input');
         input.setAttribute('type', 'radio');
@@ -96,18 +93,30 @@ function mostrarImagen() {
 
         opcionesContainer.appendChild(div);
     });
+
+    document.getElementById('pregunta').innerText = imagenes[imagenIndex].pregunta;
 }
 
+// Variable para almacenar la calificación
+var calificacion = 0;
 
+// Variable para almacenar la calificación y el número de respuestas correctas
+var calificacion = 0;
+var respuestasCorrectas = 0;
 
+// Función para verificar la respuesta
 function verificarRespuesta() {
     var respuestaUsuario = document.querySelector('input[name="opcion"]:checked');
     if (respuestaUsuario) {
         if (respuestaUsuario.value === imagenes[imagenIndex].respuesta) {
             mostrarAlerta("¡Respuesta correcta! Efectivamente es un " + respuestaUsuario.value + ".", "alert-success");
+            respuestasCorrectas++;
+            calificacion = respuestasCorrectas * 20; // Calificación en porcentaje (20 puntos por respuesta correcta)
+            if (calificacion > 100) {
+                calificacion = 100; // Limitar la calificación a 100%
+            }
+            actualizarCalificacion(); // Actualizar la visualización de la calificación
             avanzarCarrusel();
-            document.querySelector('.imagen-contenedor').classList.add('activar-carrusel');
-
         } else {
             mostrarAlerta("Respuesta incorrecta. Inténtalo de nuevo.", "alert-danger");
         }
@@ -116,10 +125,18 @@ function verificarRespuesta() {
     }
 }
 
+// Función para actualizar la visualización de la calificación
+function actualizarCalificacion() {
+    var calificacionPorcentaje = calificacion + "%";
+    document.getElementById('calificacion').innerText = "Calificación: " + calificacionPorcentaje;
+}
+
+
+
 function avanzarCarrusel() {
     imagenIndex++;
     if (imagenIndex >= imagenes.length) {
-        imagenIndex = 0; // Si llegamos al final, volvemos al principio
+        imagenIndex = 0;
     }
     mostrarImagen();
 }
@@ -128,44 +145,61 @@ function mostrarAlerta(mensaje, tipo) {
     var alerta = document.createElement("div");
     alerta.classList.add("alert", tipo, "alert-small");
     alerta.textContent = mensaje;
-    document.body.appendChild(alerta);
+    document.getElementById('alert-container').appendChild(alerta);
 
-    // Ocultar la alerta después de 3 segundos
     setTimeout(function () {
         alerta.remove();
     }, 3000);
 }
 
-// Mostrar la primera imagen al cargar la página
-mostrarImagen();
+function mostrarFormularioEdicion() {
+    document.getElementById('formulario-edicion').style.display = 'block';
+    document.getElementById('pregunta').style.display = 'none';
+    document.getElementById('opciones-container').style.display = 'none';
+    document.querySelector('.imagen-contenedor').style.display = 'none';
 
-/*Fin Página cuestionario de vocabulario*/
+    // Rellenar el formulario con los datos actuales de la pregunta
+    document.getElementById('nueva-pregunta').value = imagenes[imagenIndex].pregunta;
+    document.getElementById('nueva-respuesta').value = imagenes[imagenIndex].respuesta;
+    document.getElementById('nueva-opcion1').value = imagenes[imagenIndex].opciones[0];
+    document.getElementById('nueva-opcion2').value = imagenes[imagenIndex].opciones[1];
+    document.getElementById('nueva-opcion3').value = imagenes[imagenIndex].opciones[2];
+}
 
+function cancelarEdicion() {
+    document.getElementById('formulario-edicion').style.display = 'none';
+    document.getElementById('pregunta').style.display = 'block';
+    document.getElementById('opciones-container').style.display = 'block';
+    document.querySelector('.imagen-contenedor').style.display = 'block';
+}
 
-//enviar a la otra pagina
+function guardarEdicion() {
+    var nuevaPregunta = document.getElementById('nueva-pregunta').value;
+    var nuevaRespuesta = document.getElementById('nueva-respuesta').value;
+    var nuevaOpcion1 = document.getElementById('nueva-opcion1').value;
+    var nuevaOpcion2 = document.getElementById('nueva-opcion2').value;
+    var nuevaOpcion3 = document.getElementById('nueva-opcion3').value;
+    var nuevaImagenInput = document.getElementById('nueva-imagen');
 
-document.getElementById("formulario").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevenir el envío del formulario por defecto
-
-    // Obtener los datos del formulario
-    let formData = new FormData(this);
-
-    // Realizar una solicitud AJAX para enviar los datos al servidor
-    fetch("procesar_formulario.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => {
-        if (response.ok) {
-            // Si la respuesta es satisfactoria, redirigir a otra página
-            window.location.href = "seleccion_multiple";
-        } else {
-            // Manejar errores
-            console.error("Error al procesar el formulario");
+    if (nuevaImagenInput.files && nuevaImagenInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            imagenes[imagenIndex].src = e.target.result;
+            actualizarDatosPregunta(nuevaPregunta, nuevaRespuesta, nuevaOpcion1, nuevaOpcion2, nuevaOpcion3);
         }
-    })
-    .catch(error => {
-        console.error("Error de red:", error);
-    });
+        reader.readAsDataURL(nuevaImagenInput.files[0]);
+    } else {
+        actualizarDatosPregunta(nuevaPregunta, nuevaRespuesta, nuevaOpcion1, nuevaOpcion2, nuevaOpcion3);
+    }
+}
 
-});
+function actualizarDatosPregunta(pregunta, respuesta, opcion1, opcion2, opcion3) {
+    imagenes[imagenIndex].pregunta = pregunta;
+    imagenes[imagenIndex].respuesta = respuesta;
+    imagenes[imagenIndex].opciones = [opcion1, opcion2, opcion3];
+
+    guardarDatosEnLocalStorage(); // Guardar los datos actualizados en localStorage
+    cancelarEdicion();
+    mostrarImagen();
+    mostrarAlerta("Pregunta actualizada con éxito.", "alert-success");
+}

@@ -4,59 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de Identificación de Imágenes</title>
-    <!-- Enlaces a Bootstrap y a tu archivo de estilos -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/estilos.css">
 </head>
-<script>
-    function redireccionar() {
-            window.location.href = "completar_frase.html";
-        }
-</script>
+
+<style>
+    /* Estilos para las calificaciones */
+#calificaciones-container {
+    margin-top: 20px;
+}
+
+.calificacion {
+    margin-bottom: 10px;
+}
+
+.calificacion p {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.calificacion span {
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+.alert-small {
+    margin-top: 10px;
+}
+
+</style>
 <body>
     <div class="container">
         <div class="titulo">
             <h1>Identifique las Imágenes</h1>
         </div>
         <br>
-        <div class=""></div>
-        <div class="instrucciones" id="instrucciones" style="display: none;">
+        <div id="instrucciones" class="instrucciones" style="display: none;">
             <p>Seleccione una opción de acuerdo a la imagen que tenga un parecido con las respuestas, por ejemplo, si la imagen parece un animal, una de las respuestas podría ser algún pariente o características del individuo.</p>
         </div>
         <div id="alert-container"></div>
         <div class="d-flex justify-content-end">
-            <button id="boton" class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button>
+            <!--<button id="boton" class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button>-->
         </div>
         
-
         <div class="imagen-contenedor">
             <img src="Images/gato_01.jpeg" alt="Imagen de un gato" class="imagen" id="imagen">
         </div>
-
         <br>
         <p id="pregunta">¿Qué animal es el que se muestra en la imagen?</p>
 
-        <!-- Contenedor de opciones de respuesta justo debajo de las instrucciones -->
-        <div id="opciones-container" class="opciones">
-        </div>
+        <div id="opciones-container" class="opciones"></div>
         <br>
-
         <div class="boton">
             <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
             <button id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>        
             <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
+            <button onclick="mostrarFormularioEdicion()" class="btn btn-warning">Editar Pregunta</button>
         </div>
-        <br>
+         <!-- Contenedor para la calificación -->
+         <div id="calificaciones-container">
+            <div id="calificacion" class="calificacion">
+               <p>Calificación:</p>
+               <span>0%</span>
+            </div>
+        </div>
         <div class="boton2">
-            <button href="" class="btn btn-outline-info">Salir</button>
+            <button class="btn btn-outline-info" onclick="redireccionar3()">Atras</button>
         </div>
         <br>
+        
+        <!-- Formulario de edición -->
+        <div id="formulario-edicion" style="display: none;">
+            <h3>Editar Pregunta</h3>
+            <form id="form-edicion">
+                <div class="mb-3">
+                    <label for="nueva-imagen" class="form-label">Nueva Imagen</label>
+                    <input type="file" class="form-control" id="nueva-imagen" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="nueva-pregunta" class="form-label">Nueva Pregunta</label>
+                    <input type="text" class="form-control" id="nueva-pregunta">
+                </div>
+                <div class="mb-3">
+                    <label for="nueva-respuesta" class="form-label">Respuesta Correcta</label>
+                    <input type="text" class="form-control" id="nueva-respuesta">
+                </div>
+                <div class="mb-3">
+                    <label for="nueva-opcion1" class="form-label">Opción 1</label>
+                    <input type="text" class="form-control" id="nueva-opcion1">
+                </div>
+                <div class="mb-3">
+                    <label for="nueva-opcion2" class="form-label">Opción 2</label>
+                    <input type="text" class="form-control" id="nueva-opcion2">
+                </div>
+                <div class="mb-3">
+                    <label for="nueva-opcion3" class="form-label">Opción 3</label>
+                    <input type="text" class="form-control" id="nueva-opcion3">
+                </div>
+                <button type="button" class="btn btn-success" onclick="guardarEdicion()">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">Cancelar</button>
+            </form>
+        </div>
     </div>
-
-    <!-- Modal de Ayuda -->
    
-    <!-- Script JavaScript -->
-    <script src="scripts/javascript.js"></script>
+    <!-- Script -->
+    <script src="scripts/seleccion_imagenes.js"></script>
     <script>
         function mostrar() {
             var instrucciones = document.getElementById('instrucciones');
@@ -67,8 +119,29 @@
             }
         }
 
+        function redireccionar() {
+            window.location.href = "completar_frase.html";
+        }
+
         function redireccionar2() {
             window.location.href = "SubirImagen.html";
+        }
+        function redireccionar3() {
+            window.location.href = "cuestionario.html";
+        }
+
+        function mostrarFormularioEdicion() {
+            document.getElementById('formulario-edicion').style.display = 'block';
+            document.getElementById('pregunta').style.display = 'none';
+            document.getElementById('opciones-container').style.display = 'none';
+            document.querySelector('.imagen-contenedor').style.display = 'none';
+        }
+
+        function cancelarEdicion() {
+            document.getElementById('formulario-edicion').style.display = 'none';
+            document.getElementById('pregunta').style.display = 'block';
+            document.getElementById('opciones-container').style.display = 'block';
+            document.querySelector('.imagen-contenedor').style.display = 'block';
         }
     </script>
 </body>
