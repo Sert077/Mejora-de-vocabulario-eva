@@ -110,8 +110,19 @@ input[type="text"] {
   margin-top: 1%;
 }
 
+.boton3 {
+  /*display: flex;
+  /* Establece el contenedor como flexbox */
+  margin-top: 1%;
+  text-align: right;
+  margin-left: 15%;
+  margin-right: 10%;
+}
+
 .boton2 {
   display: flex;
+  text-align: left;
+  margin-top: 30px;
   /* Establece el contenedor como flexbox */
   /* Distribuye los elementos hijos (los botones) a lo largo del contenedor con espacio entre ellos */
   margin-top: 1%;

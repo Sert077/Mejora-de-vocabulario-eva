@@ -11,15 +11,33 @@
 </head>
 
 <body>
+  <div class="boton2">
+    <button class="btn btn-primary btn-siguiente" style="background-color: brown; color: white; border: none;" onclick="window.location.href='cuestionario.html'">
+        Cuestionario
+    </button>
+    <button class="btn btn-primary btn-siguiente" style="background-color:orange; color: white; border: none;" onclick="window.location.href='seleccion_multiple.html'">
+        Imágenes
+    </button>
+    
+    <button class="btn btn-primary btn-siguiente" style="background-color: purple; color: white; border: none;" onclick="window.location.href='completar_frase.html'">
+        Frases
+    </button>
+</div>
+
   <div class="titulo">
     <h1>Prueba de Completar Frases</h1>
   </div>
 
-  <div class="boton">
-    <button id="createFilesButton" class="btn btn-primary">Añadir al Paquete_SCORM</button>
-    <button id="zip-button" class="btn btn-primary">Descargar Paquete_SCORM</button>
-  </div>
+  <div class="boton3">
+    <button id="createFilesButton" class="btn btn-primary" style="background-color: transparent; color: white;">
+        Añadir al Paquete_SCORM
+    </button>
+    <button id="zip-button" class="btn btn-primary" style="background-color: green; color: white;">
+        Descargar Paquete_SCORM
+    </button>
+</div>
 
+  <br>
   <script>
     document.getElementById('zip-button').addEventListener('click', function () {
       window.location.href = '/download-zip';
@@ -30,8 +48,7 @@
     <p>Completa cada frase arrastrando la palabra:</p>
     <div class="container">
       <p id="sentence1" ondrop="drop(event)" ondragover="allowDrop(event)">La <span class="placeholder"
-          ondrop="drop(event)" ondragover="allowDrop(event)">______________</span> es una fruta muy dulce y con muchas
-        pepas.</p>
+          ondrop="drop(event)" ondragover="allowDrop(event)">______________</span> es una fruta muy dulce y con muchas pepas.</p>
       <div class="options" id="options1">
         <span class="option" draggable="true" ondragstart="drag(event)" id="Manzana">Manzana</span>
         <span class="option" draggable="true" ondragstart="drag(event)" id="Plátano">Plátano</span>
@@ -87,15 +104,12 @@
       <button id="editButton" onclick="toggleEditMode()" class="btn btn-primary">Editar</button>
       <button id="saveButton" onclick="saveChanges()" style="display: none;" class="btn btn-primary">Guardar</button>
       <button id="verifyButton" onclick="verifySentences()" style="display: block;"
-        class="btn btn-primary">Verificar</button>
-      <button id="scoreButton" onclick="calculateScore()" class="btn btn-primary">Calificar</button>
+        class="btn btn-primary">Calificar</button>
+      <!--<button id="scoreButton" onclick="calculateScore()" class="btn btn-primary">Calificar</button>-->>
     </div>
     <div id="calificacion" class="mt-3"></div>
   </div>
   <br>
-  <div class="boton2">
-    <button class="btn btn-outline-info" onclick="redireccionar3()">Atras</button>
-  </div>
   </script>
   <script src="scripts/SCORM_API_wrapper.js"></script>
   <script src="scripts/completar_frase.js"></script>

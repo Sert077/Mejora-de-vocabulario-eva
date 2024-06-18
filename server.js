@@ -126,7 +126,7 @@ async function emptyPublicFolder() {
 
 app.get('/download-zip', async (req, res) => {
   await copyFiles();
-  const zipPath = path.join(__dirname, 'public.zip');
+  const zipPath = path.join(__dirname, 'Paquete_SCORM.zip');
   const output = fs.createWriteStream(zipPath);
   const archive = archiver('zip', {
       zlib: { level: 9 } // Nivel de compresión

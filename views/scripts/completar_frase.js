@@ -212,6 +212,7 @@ function mostrarMensajeEnDiv(mensaje) {
   setTimeout(function () {
     resultadoDiv.textContent = '';
   }, 2000);
+  calculateScore();
 }
 
 // Nueva función para calcular la calificación

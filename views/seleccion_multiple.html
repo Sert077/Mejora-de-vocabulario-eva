@@ -35,13 +35,29 @@
 
 <body>
     <div class="container">
+        <div class="boton2">
+            <button class="btn btn-primary btn-siguiente" style="background-color: brown; color: white; border: none;" onclick="window.location.href='cuestionario.html'">
+                Cuestionario
+            </button>
+            <button class="btn btn-primary btn-siguiente" style="background-color:orange; color: white; border: none;" onclick="window.location.href='seleccion_multiple.html'">
+                Imágenes
+            </button>
+            
+            <button class="btn btn-primary btn-siguiente" style="background-color: purple; color: white; border: none;" onclick="window.location.href='completar_frase.html'">
+                Frases
+            </button>
+        </div>
         <div class="titulo">
             <h1>Identifique las Imágenes</h1>
         </div>
 
-        <div class="boton">
-            <button id="createFilesButton" class="btn btn-primary">Añadir al Paquete_SCORM</button>
-            <button id="zip-button" class="btn btn-primary">Descargar Paquete_SCORM</button>
+        <div class="boton3">
+            <button id="createFilesButton" class="btn btn-primary" style="background-color: transparent; color: white;">
+                Añadir al Paquete_SCORM
+            </button>
+            <button id="zip-button" class="btn btn-primary" style="background-color: green; color: white;">
+                Descargar Paquete_SCORM
+            </button>
         </div>
 
         <script>
@@ -72,7 +88,6 @@
         <div class="boton">
             <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
             <button id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>
-            <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
             <button onclick="mostrarFormularioEdicion()" class="btn btn-warning" id="preg">Editar Pregunta</button>
         </div>
         <!-- Contenedor para la calificación -->
@@ -82,9 +97,7 @@
                 <span>0%</span>
             </div>
         </div>
-        <div class="boton2">
-            <button class="btn btn-outline-info" onclick="redireccionar3()">Atras</button>
-        </div>
+        
         <br>
 
         <!-- Formulario de edición -->

@@ -100,13 +100,29 @@
 </head>
 
 <body>
+    <div class="boton2">
+        <button class="btn btn-primary btn-siguiente" style="background-color: brown; color: white; border: none;" onclick="window.location.href='cuestionario.html'">
+            Cuestionario
+        </button>
+        <button class="btn btn-primary btn-siguiente" style="background-color:orange; color: white; border: none;" onclick="window.location.href='seleccion_multiple.html'">
+            Imágenes
+        </button>
+        
+        <button class="btn btn-primary btn-siguiente" style="background-color: purple; color: white; border: none;" onclick="window.location.href='completar_frase.html'">
+            Frases
+        </button>
+    </div>
     <div class="titulo">
         <h1>Cuestionario de Vocabulario</h1>
     </div>
 
-    <div class="boton">
-        <button id="createFilesButton" class="btn btn-primary">Añadir al Paquete_SCORM</button>
-        <button id="zip-button" class="btn btn-primary">Descargar Paquete_SCORM</button>
+    <div class="boton3">
+        <button id="createFilesButton" class="btn btn-primary" style="background-color: transparent; color: white;">
+            Añadir al Paquete_SCORM
+        </button>
+        <button id="zip-button" class="btn btn-primary" style="background-color: green; color: white; border: none;">
+            Descargar Paquete_SCORM
+        </button>
     </div>
 
     <script>
@@ -122,7 +138,7 @@
             <!--<p>Introduce o cambia la oración, tienes hasta 6 oraciones para guardar!:</p>-->
             <input type="text" id="inputTexto">
             <br>
-            <button onclick="convertirGuardar(indiceActual)">Guardar oración</button>
+            <button onclick="convertirGuardar(indiceActual)" >Guardar oración</button>
         </div>
     </div>
 
@@ -140,10 +156,15 @@
             <p id="calificacion">Calificación: 0%</p>
             <button onclick="reset()" class="btn btn-primary">Limpiar</button>
             <button onclick="verificarOracion()" class="btn btn-primary btn-siguiente">Verificar oración</button>
+            
+              
             <button onclick="cambiarOracion(); convertirTexto(); reset();"
                 class="btn btn-primary btn-siguiente">Siguiente oración</button>
             <br><br>
-            <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
+
+           
+
+            
             <!--<button onclick="obtenerPista()">Obtener Pista</button>-->
 
         </div>
