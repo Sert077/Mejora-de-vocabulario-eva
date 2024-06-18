@@ -1,32 +1,32 @@
 // Array de imágenes con preguntas y respuestas
 var imagenes = [
-    { 
-        src: "Images/gato_01.jpeg", 
-        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+    {
+        src: "Images/gato_01.jpeg",
+        pregunta: "¿Qué animal es el que se muestra en la imagen?",
         respuesta: "gato",
         opciones: ["gato", "perro", "mono"]
     },
-    { 
-        src: "Images/perro.jpg", 
-        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+    {
+        src: "Images/perro.jpg",
+        pregunta: "¿Qué animal es el que se muestra en la imagen?",
         respuesta: "perro",
         opciones: ["perro", "delfin", "mono"]
     },
-    { 
-        src:"Images/mono.jpg", 
-        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+    {
+        src: "Images/mono.jpg",
+        pregunta: "¿Qué animal es el que se muestra en la imagen?",
         respuesta: "mono",
         opciones: ["Aguila", "delfin", "mono"]
     },
-    { 
-        src: "Images/hipo.jpg", 
-        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+    {
+        src: "Images/hipo.jpg",
+        pregunta: "¿Qué animal es el que se muestra en la imagen?",
         respuesta: "hipopotamo",
         opciones: ["hipopotamo", "delfin", "mandir"]
     },
-    { 
-        src: "Images/leon.jpg", 
-        pregunta: "¿Qué animal es el que se muestra en la imagen?", 
+    {
+        src: "Images/leon.jpg",
+        pregunta: "¿Qué animal es el que se muestra en la imagen?",
         respuesta: "leon",
         opciones: ["Aguila", "delfin", "leon"]
     }
@@ -46,7 +46,7 @@ function guardarDatosEnLocalStorage() {
 }
 
 // Cargar datos desde localStorage al cargar la página
-window.onload = function() {
+window.onload = function () {
     cargarDatosDesdeLocalStorage();
     mostrarImagen();
 };
@@ -55,12 +55,12 @@ var imagenIndex = 0;
 
 function mostrarImagen() {
     var imagenContenedor = document.querySelector('.imagen-contenedor');
-    
+
     var imagenActual = document.querySelector('.imagen');
     if (imagenActual) {
         imagenActual.remove();
     }
-    
+
     var nuevaImagen = document.createElement('img');
     nuevaImagen.src = imagenes[imagenIndex].src;
     nuevaImagen.alt = "Imagen de un " + imagenes[imagenIndex].respuesta;
@@ -73,7 +73,7 @@ function mostrarImagen() {
     var opciones = imagenes[imagenIndex].opciones.slice();
     var respuesta = imagenes[imagenIndex].respuesta;
 
-    opciones.forEach(function(opcion, index) {
+    opciones.forEach(function (opcion, index) {
         var input = document.createElement('input');
         input.setAttribute('type', 'radio');
         input.setAttribute('name', 'opcion');
@@ -203,3 +203,197 @@ function actualizarDatosPregunta(pregunta, respuesta, opcion1, opcion2, opcion3)
     mostrarImagen();
     mostrarAlerta("Pregunta actualizada con éxito.", "alert-success");
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('preg').style.display = 'inline-block';
+    document.getElementById('createFilesButton').style.display = 'inline-block';
+    document.getElementById('zip-button').style.display = 'display';
+});
+
+
+document.getElementById('createFilesButton').addEventListener('click', async () => {
+    try {
+        const htmlContent = document.documentElement.outerHTML;
+        const cssContent = await getCSSContent();
+        const jsContent = await getJavaScriptContent();
+
+        const response = await fetch('/save-files-imagen', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ htmlContent, cssContent, jsContent })
+        });
+
+        if (response.ok) {
+            console.log('Archivos guardados exitosamente');
+        } else {
+            console.error('Error al guardar archivos:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error('Error al procesar solicitud:', error);
+    }
+});
+
+
+async function getCSSContent() {
+    let styles = '';
+    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+    const fetchPromises = [];
+
+    cssLinks.forEach(link => {
+        if (link.href.includes('styles/estilos.css')) {
+            fetchPromises.push(
+                fetch(link.href)
+                    .then(response => response.text())
+                    .then(cssContent => {
+                        styles += cssContent + '\n';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching CSS:', error);
+                        reject(error); // Rechazar la Promesa en caso de error
+                    })
+            );
+        }
+    });
+
+    await Promise.all(fetchPromises);
+
+    return styles;
+}
+
+// Updated getJavaScriptContent function
+async function getJavaScriptContent() {
+    let scripts = '';
+    const scriptTags = document.querySelectorAll('script[src="scripts/seleccion_imagenes.js"]');
+    const fetchPromises = [];
+
+    scriptTags.forEach(script => {
+        fetchPromises.push(
+            fetch(script.src)
+                .then(response => response.text())
+                .then(jsContent => {
+                    scripts += jsContent + '\n';
+                })
+                .catch(error => {
+                    console.error('Error fetching JavaScript:', error);
+                    reject(error); // Rechazar la Promesa en caso de error
+                })
+        );
+    });
+
+    try {
+        await Promise.all(fetchPromises);
+
+    // Reemplazar otros códigos necesarios (ejemplo)
+    const originalCode = `document.getElementById('preg').style.display = 'inline-block';`;
+    const nuevoCode = `document.getElementById('preg').style.display = 'none';`;
+
+    const originalCo = `document.getElementById('createFilesButton').style.display = 'inline-block';`;
+    const nuevoCo = `document.getElementById('createFilesButton').style.display = 'none';`;
+
+    const originalCod = `document.getElementById('zip-button').style.display = 'display';`;
+    const nuevoCod = `document.getElementById('zip-button').style.display = 'none';`;
+    
+        // Recuperar las imágenes desde localStorage si existen
+        let imagenesLocalStorage = localStorage.getItem('preguntas_seleccion_multiple');
+        if (imagenesLocalStorage) {
+            imagenesLocalStorage = JSON.parse(imagenesLocalStorage);
+            // Crear una copia de las imágenes originales para no modificarlas
+        let imagenesModificadas = imagenes.map(imagen => ({ ...imagen }));
+
+        // Iterar sobre las imágenes de localStorage para añadir o modificar las existentes
+        imagenesLocalStorage.forEach(imagenLocal => {
+            // Buscar si la imagen de localStorage ya existe en las originales por src
+            const index = imagenesModificadas.findIndex(imagenOrig => imagenOrig.src === imagenLocal.src);
+            if (index !== -1) {
+                // Si existe, reemplazarla con la versión de localStorage
+                imagenesModificadas[index] = {
+                    src: imagenLocal.src,
+                    pregunta: imagenLocal.pregunta,
+                    respuesta: imagenLocal.respuesta,
+                    opciones: imagenLocal.opciones
+                };
+            } else {
+                // Si no existe, agregarla al final de la lista
+                imagenesModificadas.push({
+                    src: imagenLocal.src,
+                    pregunta: imagenLocal.pregunta,
+                    respuesta: imagenLocal.respuesta,
+                    opciones: imagenLocal.opciones
+                });
+            }
+        });
+
+        // Construir el código JavaScript con las imágenes modificadas
+        let imagenesCode = 'var imagenes = [\n';
+        imagenesModificadas.forEach((imagen, index) => {
+            imagenesCode += `    {\n`;
+            imagenesCode += `        src: "${imagen.src}",\n`;
+            imagenesCode += `        pregunta: "${imagen.pregunta}",\n`;
+            imagenesCode += `        respuesta: "${imagen.respuesta}",\n`;
+            imagenesCode += `        opciones: ${JSON.stringify(imagen.opciones)}\n`;
+            imagenesCode += `    }`;
+
+            if (index < imagenesModificadas.length - 1) {
+                imagenesCode += ',\n';
+            } else {
+                imagenesCode += '\n';
+            }
+        });
+        imagenesCode += '];\n\n';
+
+        // Reemplazar el código original con el código actualizado
+        const original = /var\s+imagenes\s*=\s*\[[\s\S]*?\];/;
+        const nuevo = imagenesCode;
+        scripts = scripts.replace(original, nuevo);
+
+        console.log(nuevo);
+
+        
+    scripts = scripts.replace(originalCode, nuevoCode);
+    scripts = scripts.replace(originalCo, nuevoCo);
+    scripts = scripts.replace(originalCod, nuevoCod);
+
+        } else {
+            console.warn('No hay imágenes almacenadas en localStorage. Se mantienen los cambios originales.');
+            
+    scripts = scripts.replace(originalCode, nuevoCode);
+    scripts = scripts.replace(originalCo, nuevoCo);
+    scripts = scripts.replace(originalCod, nuevoCod);
+            return scripts; // Devolver scripts sin cambios si no hay imágenes en localStorage
+        }
+
+        
+
+        
+
+    } catch (error) {
+        console.error('Error al cargar archivos JavaScript:', error);
+        throw error; // Propagar el error para manejo superior
+    }
+
+    return scripts;
+}
+
+
+function mostrarLocalStorage() {
+    // Recuperar el array de imágenes desde localStorage
+    var imagenesRecuperadas = JSON.parse(localStorage.getItem('preguntas_seleccion_multiple'));
+
+    // Verificar si hay imágenes recuperadas
+    if (imagenesRecuperadas && imagenesRecuperadas.length > 0) {
+        // Iterar sobre todas las imágenes y mostrar sus rutas
+        imagenesRecuperadas.forEach((imagen, index) => {
+            console.log(`Imagen ${index + 1}:`, imagen.src);
+        });
+    } else {
+        console.log('No hay imágenes almacenadas en localStorage.');
+    }
+}
+
+
+window.addEventListener('load', function () {
+    //mostrarLocalStorage();
+    //localStorage.clear();
+});

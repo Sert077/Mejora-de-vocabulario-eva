@@ -5,6 +5,8 @@ var savedSentences = {
   "sentence3": "El Juego que se juega con balón es el Fútbol"
 };
 
+let oracions = {};
+
 function initializeScorm() {
   var result = SCORM_Init();
   if (result) {
@@ -71,7 +73,7 @@ function toggleEditMode() {
   var saveButton = document.getElementById('saveButton');
   var verifyButton = document.getElementById('verifyButton');
   var addButtons = document.querySelectorAll('[id^="addBtn"]');
-  
+
   if (editButton.style.display !== 'none') {
     editButton.style.display = 'none';
     saveButton.style.display = 'block';
@@ -150,7 +152,12 @@ function saveChanges() {
 
     sentences.forEach(function (sentence) {
       savedSentences[sentence.id] = sentence.textContent.trim();
+      //console.log(savedSentences[sentence.id]);
     });
+
+    oracions = { ...savedSentences };
+
+
 
     document.querySelectorAll('.option').forEach(function (option) {
       if (option.style.display !== 'none') {
@@ -284,15 +291,15 @@ function generateOptions() {
   // Encuentra el contenedor padre del botón que fue clicado
   const button = event.target;
   const container = button.closest('.container');
-  
+
   // Encuentra el div con la clase 'options' dentro de este contenedor
   const optionsDiv = container.querySelector('.options');
-  
+
   // Define nuevas opciones (puedes modificar estas opciones según tus necesidades)
   const newOptions = [
     { id: 'Opción1', text: 'Opción' },
   ];
-  
+
   // Añade las nuevas opciones al div de opciones
   newOptions.forEach(option => {
     const span = document.createElement('span');
@@ -303,17 +310,133 @@ function generateOptions() {
     span.textContent = option.text;
     span.setAttribute('contenteditable', 'true');
     optionsDiv.appendChild(span);
-    
+
   });
-  
+
 }
 
 // Inicializar SCORM cuando la página se carga
-window.onload = function() {
+window.onload = function () {
   initializeScorm();
 };
 
 // Finalizar SCORM cuando la página se descarga
-window.onunload = function() {
+window.onunload = function () {
   terminateScorm();
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('editButton').style.display = 'display';
+  document.getElementById('createFilesButton').style.display = 'inline-block';
+  document.getElementById('zip-button').style.display = 'display';
+});
+
+
+document.getElementById('createFilesButton').addEventListener('click', async () => {
+  try {
+    const htmlContent = document.documentElement.outerHTML;
+    const cssContent = await getCSSContent();
+    const jsContent = await getJavaScriptContent();
+
+    const response = await fetch('/save-files', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ htmlContent, cssContent, jsContent })
+    });
+
+    if (response.ok) {
+      console.log('Archivos guardados exitosamente');
+    } else {
+      console.error('Error al guardar archivos:', response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error('Error al procesar solicitud:', error);
+  }
+});
+
+
+async function getCSSContent() {
+  let styles = '';
+  const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+  const fetchPromises = [];
+
+  cssLinks.forEach(link => {
+    if (link.href.includes('styles/completar_frase.css')) {
+      fetchPromises.push(
+        fetch(link.href)
+          .then(response => response.text())
+          .then(cssContent => {
+            styles += cssContent + '\n';
+          })
+          .catch(error => {
+            console.error('Error fetching CSS:', error);
+            reject(error); // Rechazar la Promesa en caso de error
+          })
+      );
+    }
+  });
+
+  await Promise.all(fetchPromises);
+
+  return styles;
+}
+
+// Updated getJavaScriptContent function
+async function getJavaScriptContent() {
+  let scripts = '';
+  const scriptTags = document.querySelectorAll('script[src="scripts/completar_frase.js"]');
+  const fetchPromises = [];
+
+  scriptTags.forEach(script => {
+    fetchPromises.push(
+      fetch(script.src)
+        .then(response => response.text())
+        .then(jsContent => {
+          scripts += jsContent + '\n';
+        })
+        .catch(error => {
+          console.error('Error fetching JavaScript:', error);
+          reject(error); // Rechazar la Promesa en caso de error
+        })
+    );
+  });
+
+  try {
+    await Promise.all(fetchPromises);
+
+    if (Object.keys(oracions).length > 0) {
+
+      const regex = new RegExp(`var\\s+savedSentences\\s*=\\s*\\{[^}]*\\};`, 'g');
+      scripts = scripts.replace(regex, '');
+
+      scripts += `var savedSentences = ${JSON.stringify(oracions)};\n`;
+    }
+
+      const originalCode = `document.getElementById('editButton').style.display = 'display';`;
+      const nuevoCode = `document.getElementById('editButton').style.display = 'none';`;
+      scripts = scripts.replace(originalCode, nuevoCode);
+
+      const originalCo = `document.getElementById('createFilesButton').style.display = 'inline-block';`;
+    const nuevoCo = `document.getElementById('createFilesButton').style.display = 'none';`;
+
+    scripts = scripts.replace(originalCo, nuevoCo);
+
+    const originalCod = `document.getElementById('zip-button').style.display = 'display';`;
+    const nuevoCod = `document.getElementById('zip-button').style.display = 'none';`;
+    scripts = scripts.replace(originalCod, nuevoCod);
+    
+
+  } catch (error) {
+    console.error('Error al cargar archivos JavaScript:', error);
+    throw error; // Propagar el error para manejo superior
+  }
+
+  return scripts;
+}
+
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special characters
+}

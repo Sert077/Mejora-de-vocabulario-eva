@@ -211,3 +211,6 @@ body {
   animation: carrusel 1s ease-in-out;
 }
 
+.hidden {
+    display: none;
+}

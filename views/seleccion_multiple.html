@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,43 +10,57 @@
 </head>
 <style>
     /* Estilos para las calificaciones */
-#calificaciones-container {
-    margin-top: 20px;
-}
+    #calificaciones-container {
+        margin-top: 20px;
+    }
 
-.calificacion {
-    margin-bottom: 10px;
-}
+    .calificacion {
+        margin-bottom: 10px;
+    }
 
-.calificacion p {
-    font-weight: bold;
-    font-size: 18px;
-}
+    .calificacion p {
+        font-weight: bold;
+        font-size: 18px;
+    }
 
-.calificacion span {
-    margin-left: 10px;
-    font-weight: normal;
-}
+    .calificacion span {
+        margin-left: 10px;
+        font-weight: normal;
+    }
 
-.alert-small {
-    margin-top: 10px;
-}
-
+    .alert-small {
+        margin-top: 10px;
+    }
 </style>
+
 <body>
     <div class="container">
         <div class="titulo">
             <h1>Identifique las Imágenes</h1>
         </div>
+
+        <div class="boton">
+            <button id="createFilesButton" class="btn btn-primary">Añadir al Paquete_SCORM</button>
+            <button id="zip-button" class="btn btn-primary">Descargar Paquete_SCORM</button>
+        </div>
+
+        <script>
+            document.getElementById('zip-button').addEventListener('click', function () {
+                window.location.href = '/download-zip';
+            });
+        </script>
+
         <br>
         <div id="instrucciones" class="instrucciones" style="display: none;">
-            <p>Seleccione una opción de acuerdo a la imagen que tenga un parecido con las respuestas, por ejemplo, si la imagen parece un animal, una de las respuestas podría ser algún pariente o características del individuo.</p>
+            <p>Seleccione una opción de acuerdo a la imagen que tenga un parecido con las respuestas, por ejemplo, si la
+                imagen parece un animal, una de las respuestas podría ser algún pariente o características del
+                individuo.</p>
         </div>
         <div id="alert-container"></div>
         <div class="d-flex justify-content-end">
             <!--<button id="boton" class="btn btn-primary" onclick="redireccionar2()">Subir Imagen</button>-->
         </div>
-        
+
         <div class="imagen-contenedor">
             <img src="Images/gato_01.jpeg" alt="Imagen de un gato" class="imagen" id="imagen">
         </div>
@@ -56,22 +71,22 @@
         <br>
         <div class="boton">
             <button onclick="verificarRespuesta()" class="btn btn-primary">Verificar</button>
-            <button id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>        
+            <button id="boton-ayuda" onclick="mostrar()" class="btn btn-primary">Ayuda</button>
             <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
-            <button onclick="mostrarFormularioEdicion()" class="btn btn-warning">Editar Pregunta</button>
+            <button onclick="mostrarFormularioEdicion()" class="btn btn-warning" id="preg">Editar Pregunta</button>
         </div>
-         <!-- Contenedor para la calificación -->
-         <div id="calificaciones-container">
+        <!-- Contenedor para la calificación -->
+        <div id="calificaciones-container">
             <div id="calificacion" class="calificacion">
-               <p>Calificación:</p>
-               <span>0%</span>
+                <p>Calificación:</p>
+                <span>0%</span>
             </div>
         </div>
         <div class="boton2">
             <button class="btn btn-outline-info" onclick="redireccionar3()">Atras</button>
         </div>
         <br>
-        
+
         <!-- Formulario de edición -->
         <div id="formulario-edicion" style="display: none;">
             <h3>Editar Pregunta</h3>
@@ -105,7 +120,7 @@
             </form>
         </div>
     </div>
-   
+    <br>
     <!-- Script -->
     <script src="scripts/seleccion_imagenes.js"></script>
     <script>
@@ -144,4 +159,5 @@
         }
     </script>
 </body>
+
 </html>

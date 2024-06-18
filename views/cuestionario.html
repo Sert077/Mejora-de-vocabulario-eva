@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
         }
 
         // Inicializar SCORM cuando se carga la página
-        window.onload = function() {
+        window.onload = function () {
             var result = scorm.init();
             if (result) {
                 // Obtener el estado de finalización del alumno
@@ -51,7 +52,7 @@
         };
 
         // Terminar la sesión SCORM cuando se cierra la página
-        window.onunload = function() {
+        window.onunload = function () {
             guardarProgreso();
             scorm.save();
             scorm.quit();
@@ -91,16 +92,28 @@
 
         // Función JavaScript para redireccionar
         function redireccionar() {
-            guardarProgreso();
+            //guardarProgreso();
             window.location.href = "seleccion_multiple.html";
         }
-        
+
     </script>
 </head>
+
 <body>
     <div class="titulo">
         <h1>Cuestionario de Vocabulario</h1>
     </div>
+
+    <div class="boton">
+        <button id="createFilesButton" class="btn btn-primary">Añadir al Paquete_SCORM</button>
+        <button id="zip-button" class="btn btn-primary">Descargar Paquete_SCORM</button>
+    </div>
+
+    <script>
+        document.getElementById('zip-button').addEventListener('click', function () {
+            window.location.href = '/download-zip';
+        });
+    </script>
 
     <div class="entrada">
         <p>¡Completa la oración en el orden correcto!</p>
@@ -119,23 +132,25 @@
 
     <div id="contenedor-palabras"></div>
     <div id="area-devolucion" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <div id="contenedor-oracion" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
-    
-    <div class="espacio">
-        <p id="resultado" role="alert"></p>
-        <p id="calificacion">Calificación: 0%</p>
-        <button onclick="reset()" class="btn btn-primary">Limpiar</button>
-        <button onclick="verificarOracion()" class="btn btn-primary btn-siguiente">Verificar oración</button>
-        <button onclick="cambiarOracion(); convertirTexto(); reset();" class="btn btn-primary btn-siguiente">Siguiente oración</button>
-        <br><br>
-        <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
-        <!--<button onclick="obtenerPista()">Obtener Pista</button>-->
+        <div id="contenedor-oracion" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </div>
 
-    </div>
-    
-    
-    <!-- Script JavaScript -->
-    <script src="scripts/javascript.js"></script>
+        <div class="espacio">
+            <p id="resultado" role="alert"></p>
+            <p id="calificacion">Calificación: 0%</p>
+            <button onclick="reset()" class="btn btn-primary">Limpiar</button>
+            <button onclick="verificarOracion()" class="btn btn-primary btn-siguiente">Verificar oración</button>
+            <button onclick="cambiarOracion(); convertirTexto(); reset();"
+                class="btn btn-primary btn-siguiente">Siguiente oración</button>
+            <br><br>
+            <button onclick="redireccionar()" class="btn btn-primary btn-siguiente">Siguiente prueba</button>
+            <!--<button onclick="obtenerPista()">Obtener Pista</button>-->
+
+        </div>
+
+
+        <!-- Script JavaScript -->
+        <script src="scripts/javascript.js"></script>
 </body>
+
 </html>
