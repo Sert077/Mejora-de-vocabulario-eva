@@ -17,7 +17,8 @@ async function copyFiles() {
       // Rutas de los archivos de origen y destino
       const filesToCopy = [
           { src: path.join(__dirname, 'index.html'), dest: path.join(__dirname, 'public', 'index.html') },
-          { src: path.join(__dirname, 'imsmanifest.xml'), dest: path.join(__dirname, 'public', 'imsmanifest.xml') }
+          { src: path.join(__dirname, 'imsmanifest.xml'), dest: path.join(__dirname, 'public', 'imsmanifest.xml') },
+          { src: path.join(__dirname, 'views', 'styles','index.css'), dest: path.join(__dirname, 'public', 'views','styles','index.css') }
       ];
 
       // Copiar cada archivo
