@@ -59,7 +59,7 @@ body {
 }
 .espacio{
     margin-top: 10px;
-    width: 30%;
+    width: 50%;
     }
 
     /*.entrada{
@@ -82,7 +82,7 @@ body {
     .entrada button {
         margin-bottom: 2%;
         padding: 5px 10px; 
-        background-color: green; 
+        background-color: brown; 
         color: white; 
         border-radius: 5px;
         font-size: 16px; 
@@ -125,7 +125,8 @@ body {
         display: block; /* Asegura que la imagen sea un elemento de bloque */
     }
     .boton2{
-        text-align: right;
+        text-align: left;
+        margin-top: 30px;
     }
     .alert-small {
         width: 90%; /* Define el ancho del alerta */
@@ -211,3 +212,15 @@ body {
   animation: carrusel 1s ease-in-out;
 }
 
+.hidden {
+    display: none;
+}
+
+.boton3 {
+    /*display: flex;
+    /* Establece el contenedor como flexbox */
+    margin-top: 1%;
+    text-align: right;
+    margin-left: 15%;
+  margin-right: 10%;
+  }
