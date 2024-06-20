@@ -1,0 +1,13 @@
+Ejecutar los comandos para instalar las librerias:
+
+npm install express
+npm install path
+npm install archiver
+npm install fs-extra
+
+Para ejecutar el servidor y probar la aplicacion ejecutar el siguiente comando en la consola:
+
+node server.js
+
+Luego abrir la direccion http://localhost:3000
+
